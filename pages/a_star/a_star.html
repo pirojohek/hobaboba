@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Надо придумать, мне впадлу</title>
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="page-name"><a href="#">PorhHub</a></div>
+			<nav class="menu">
+				<ul class="menu__list">
+					<li class="menu__item"><a href="#">Главная страница</a></li>
+					<li class="menu__item active"><a href="#">A* Search</a></li>
+					<li class="menu__item"><a href="#">Кластеризация</a></li>
+					<li class="menu__item"><a href="#">Генетический</a></li>
+					<li class="menu__item"><a href="#">Муравьиный</a></li>
+					<li class="menu__item"><a href="#">Дерево</a></li>
+					<li class="menu__item"><a href="#">Нейронка</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<div class="content">
+			<div class="content__inner">
+				<h1 class="content__title">A* Search</h1>
+				<div class="tools">
+					<h2 class="tools__title">Tools</h2>
+					<div class="tools__content">
+						<div class="tools__commands">
+							<button id="change-start" class="tools__button">Изменить старт</button>
+							<button id="change-end" class="tools__button">Изменить конец</button>
+							<button id="change-walls" class="tools__button">Изменить стены</button>
+							<button class="tools__button">Описание</button>
+							<button id="generate-path" class="tools__button">Сгенерировать</button>
+						</div>
+						<div class="tools__edit_area">
+							<h2 class="tools__edit-erea__title">Резмер</h2>
+							<div class="tools__edit-area__inner">
+								<div class="tools__edit-area__block-flex">
+									<div class="tools__edit-area__block-flex__item-left">
+										<form name="editForm" action="#">
+											<div class="tools__edit-form">
+												<button id="tools__send-size" class="tools__button">Изменить размер</button>
+												<input name="sizeMaze" class="tools__input-size" type="text">
+											</div>
+										</form>
+									</div>
+									<div class="tools__edit-area__block-flex__item-left">
+										<div class="tools__current-size">10x10</div>
+									</div>
+									
+								</div>
+								<div class="tools__edit-area__block-flex">
+									<div class="tools__edit-area__block-flex__item-right">
+										<button id="button-start" class="tools__button">Старт</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="grid">
+					<div class="grid__inner">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="./js/scripts.js"></script>
+</body>
+</html>
