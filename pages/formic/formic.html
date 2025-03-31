@@ -25,46 +25,19 @@
 
 		<div class="content">
 			<div class="content__inner">
-				<h1 class="content__title">A* Search</h1>
+				<h1 class="content__title">Муравьиный алгоритм</h1>
+				
 				<div class="tools">
-					<h2 class="tools__title">Tools</h2>
-					<div class="tools__content">
-						<div class="tools__commands">
-							<button id="change-start" class="tools__button">Изменить старт</button>
-							<button id="change-end" class="tools__button">Изменить конец</button>
-							<button id="change-walls" class="tools__button">Изменить стены</button>
-							<button class="tools__button">Описание</button>
-							<button id="generate-path" class="tools__button">Сгенерировать</button>
-						</div>
-						<div class="tools__edit_area">
-							<h2 class="tools__edit-erea__title">Резмер</h2>
-							<div class="tools__edit-area__inner">
-								<div class="tools__edit-area__block-flex">
-									<div class="tools__edit-area__block-flex__item-left">
-										<form name="editForm" action="#">
-											<div class="tools__edit-form">
-												<button id="tools__send-size" class="tools__button">Изменить размер</button>
-												<input name="sizeMaze" class="tools__input-size" type="text">
-											</div>
-										</form>
-									</div>
-									<div class="tools__edit-area__block-flex__item-left">
-										<div class="tools__current-size">10x10</div>
-									</div>
-									
-								</div>
-								<div class="tools__edit-area__block-flex">
-									<div class="tools__edit-area__block-flex__item-right">
-										<button id="button-start" class="tools__button">Старт</button>
-									</div>
-								</div>
-							</div>
-						</div>
+
+				</div>
+				<div class="stats">
+					<div class="stats__min-path">
+
 					</div>
 				</div>
-				<div class="grid">
-					<div class="grid__inner">
-						
+				<div class="game">
+					<div class="game__inner">
+						<canvas class="game__canvas"></canvas>
 					</div>
 				</div>
 			</div>

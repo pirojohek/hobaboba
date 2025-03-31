@@ -139,12 +139,11 @@ a {
 .content__inner {
   padding: 20px 0px 0px 0px;
 }
-
-.content__title { 
+.content__title {
   font-size: 28px;
   padding: 20px 0px 16px 0px;
-} 
-/* до сюда копировать*/ 
+}
+
 .tools__title {
   padding: 20px 0px 0px 0px;
   font-size: 22px;
@@ -184,21 +183,6 @@ a {
   justify-content: space-between;
   padding: 20px;
 }
-.tools__edit-area__block-flex {
-  display: flex;
-  align-items: center;
-}
-.tools__edit-area__block-flex__item-left {
-  flex: 1 1 auto;
-  margin: 0px 15px 0px 10px;
-}
-.tools__edit-area__block-flex__item-right {
-  flex: 1 1 auto;
-  margin: 0 10px;
-}
-.tools__current-size {
-  font-size: 18px;
-}
 .tools__input-size {
   background-color: #1c2a38;
   width: 35px;
@@ -208,48 +192,21 @@ a {
   margin-left: 10px;
 }
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.game {
+  width: 100%;
+  height: 700px;
 }
-.grid__inner {
-  display: grid;
-  grid-template-columns: repeat(10, 30px);
-  grid-gap: 2px;
-  margin: 20px;
+.game .game__inner {
+  position: relative;
+  width: 100%;
+  background-color: #394b5b;
+  height: 700px;
+  border-radius: 10px;
 }
-.grid__item {
-  width: 30px;
-  height: 30px;
-  background-color: #f0f0f0;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.4s;
-  transition: transform 0.4s;
-}
-.grid__item.active {
-  background-color: #243647;
-}
-.grid__item.start {
-  background-color: rgb(165, 56, 56);
-}
-.grid__item.end {
-  background-color: green;
-}
-.grid__item.border {
-  background-color: gray;
-}
-.grid__item:hover {
-  background-color: #2d83d8;
-  transform: scale(0.95);
-}
-.grid__item.yellow {
-  background-color: rgb(218, 218, 43);
-}
-.grid__item.orange {
-  background-color: orange;
-}
-.grid__item.red {
-  background-color: red;
+.game__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: pink;
 }/*# sourceMappingURL=style.css.map */
