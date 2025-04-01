@@ -136,7 +136,9 @@ a {
 		&:hover {
 			background-color: #1A80E5;
 		}
-		
+		&-active{
+			background-color: #1A80E5;
+		}
 	}
 	
 }
@@ -187,23 +189,67 @@ a {
 		background: linear-gradient(145deg, #1a2a36, #1a80e5);
 		transition: background-color 0.6s ease, box-shadow 0.6s ease;
 	}
-	&__edit-area__inner{
+
+	&__program{
 		display: flex;
+		justify-content: space-around;
 		align-items: center;
+		
+		&__button{
+			margin: 0px 7px;
+		}
+	}
+	&__block{
+		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
-		padding: 20px;
+		align-items: center;
+	}
+	&__input-block{
+		display: flex;	
+		align-items: center;
 	}
 
-	
 
-	&__input-size{
-		background-color: #1c2a38;
-		width: 35px;
-		height: 35px;
-		border-radius: 6px;
-		text-align: center;
-		margin-left: 10px;
-	}
+}
+
+.tools__input {
+	-webkit-appearance: none; /* убирает стандартный стиль ползунка */
+	width: 200px;
+	height: 8px;
+	border-radius: 5px;
+	background: linear-gradient(145deg, #243647, #1A80E5); 
+	outline: none;
+	transition: background 0.3s ease-in-out;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.tools__input:hover {
+	background: linear-gradient(145deg, #1A80E5, #243647); 
+}
+
+.tools__input::-webkit-slider-thumb {
+	-webkit-appearance: none; 
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: linear-gradient(145deg, #1A2A36, #1A80E5); 
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tools__input::-webkit-slider-thumb:hover {
+	transform: scale(1.1);
+	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+}
+
+.tools__value {
+	font-size: 14px;
+	color: #1A80E5; /* Цвет текста */
+	margin-left: 5px;
+	font-weight: bold;
 }
 
 
@@ -220,10 +266,95 @@ a {
 	}
 
 	&__dot{
-		width: 10px;
-		height: 10px;
+		width: 14px;
+		height: 14px;
 		border-radius: 50%;
 		position: absolute;
 		background-color: pink;
+		z-index: 10;
+	
+		
 	}
+
+	&__dot-sparing{
+		// position: absolute;
+		// margin: 10px;
+	}
+	
+}
+.game__line {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: rgb(101, 101, 213);
+	z-index: 5;
+    transform-origin: top left; /* Точка начала линии */
+	pointer-events: none;
+	&-player{
+		background-color: rgb(12, 12, 89);
+	}
+}
+
+.stats{
+	display: flex;
+	justify-content: space-around;
+	&__block{
+		padding: 20px;
+	}
+	&__name{
+		margin-bottom: 10px;
+	}
+
+	&__data{
+		font-size: 16px;
+		margin-top: 7px;
+		color: rgb(161, 161, 161);
+	}
+}
+
+
+
+
+.sparing{
+	height: 0px;
+	visibility: hidden;
+	&__inner{
+
+	}
+
+	&__name{
+		margin-top: 20px;
+		font-size: 18px;
+	}
+	&__tools{
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin: 15px 0px;
+		
+	}
+	&-visited{
+		transition: all 0.5s;
+		height: 100%;
+		visibility: visible;
+	}
+	&__current-stats{
+		margin-top: 5px;
+		color: rgb(161, 161, 161);
+	}
+	&__block{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.tools__button-off{
+	width: 0px;
+	visibility: hidden;
+}
+.tools__button-on{
+	visibility: visible;
+	margin-left: 10px;
 }
