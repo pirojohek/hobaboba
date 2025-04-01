@@ -146,8 +146,8 @@ function editWalls(){
 
 function startEvent(e){
 	const btn = e.target;
-	const btn_x = btn.dataset.x;
-	const btn_y = btn.dataset.y;
+	const btn_x = parseInt(btn.dataset.x);
+	const btn_y = parseInt(btn.dataset.y);
 	
 	const prevStartItem = document.querySelector(`.grid__item[data-x="${data.idStart.idX}"][data-y="${data.idStart.idY}"]`);
 	prevStartItem.classList.remove("start");
