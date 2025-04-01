@@ -172,7 +172,7 @@ async function formic(withPlayer = false){
 
 	for(let k = 0; k < 1000; k++){
 		if (data.stopProgram){
-			stopProgram = false;
+			data.stopProgram = false;
 			break;
 		}
 		for (let i = 0; i < data.dotCords.length; i++){
@@ -295,7 +295,9 @@ function deleteDots(){
 		const gameMap = document.getElementById("game-map");
 		
 		while (gameMap.children.length != 0){
-			gameMap.children[0].remove();
+			const dot = gameMap.children[0];
+			dot.removeEventListener("click", selectedDots);
+			dot.remove();
 		}
 		minPath.innerHTML = "";
 
@@ -376,12 +378,12 @@ function clearPathPlayer(){
 	for (let line of lines){
 		line.remove();
 	}
-
+	addEventOnDots();
 	const path = document.getElementById("sparing__current-length");
 	path.innerHTML = "";
 
 	data.pathPlayer = [];
-	data.playerLengthWay = [];
+	data.playerLengthWay = 0;
 	data.countSelectedDots = 0;
 }
 
