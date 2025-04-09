@@ -139,12 +139,11 @@ a {
 .content__inner {
   padding: 20px 0px 0px 0px;
 }
-
-.content__title { 
+.content__title {
   font-size: 28px;
   padding: 20px 0px 16px 0px;
-} 
-/* до сюда копировать*/ 
+}
+
 .tools__title {
   padding: 20px 0px 0px 0px;
   font-size: 22px;

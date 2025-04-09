@@ -22,16 +22,35 @@
 				</ul>
 			</nav>
 		</header>
-
 		<div class="content">
 			<div class="content__inner">
-				
+				<h1 class = "content__title">Генетический алгоритм нахождения оптимального пути</h1>
+				<div class="tools">
+					<h2 class="tools__title">Инструменты</h2>
+					<div class="tools__content">
+						<div class="tools__commands">
+							<button id = "get-points" class="tools__button">Расставить точки</button>
+							<button id = "clear-field" class="tools__button">Очистить поле</button>
+							<button id = "run-algorithm" class="tools__button">Запустить алгоритм</button>
+						</div>
+					</div>
+					<div class="input-block">
+						<h2 class="input-block__title">Поле расставления точек</h2>
+						<div class="input-block__inner">
+							<div class="field">
+								<svg id="screen">
+									<line x1 = '0' y1 = '0' x2 = '50' y2 = '50' stroke = "blue" stroke-width = "2">
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
 
-
+	<script src="./js/preparing.js"></script>
 	<script src="./js/scripts.js"></script>
 </body>
 </html>

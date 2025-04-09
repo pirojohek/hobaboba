@@ -1,3 +1,11 @@
+function Point(x,y) { // Точка с координатами (x, y)
+    this.x = x;
+    this.y = y;
+}
+
+
+
+var arrayOfPoints = new Array();
 
 const COUNT_POINTS = 15;
 
@@ -23,10 +31,7 @@ function getRandomInt(min, max) { // Рандомное число в диапа
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
 
-function Point(x,y) { // Точка с координатами (x, y)
-    this.x = x;
-    this.y = y;
-}
+
 
 
 
