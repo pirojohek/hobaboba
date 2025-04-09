@@ -139,9 +139,83 @@ a {
 .content__inner {
   padding: 20px 0px 0px 0px;
 }
-
-.content__title { 
+.content__title {
   font-size: 28px;
   padding: 20px 0px 16px 0px;
-} 
+}
 
+.tools__title {
+  padding: 20px 0px 0px 0px;
+  font-size: 22px;
+}
+.tools__content {
+  width: 100%;
+}
+.tools__commands {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+.tools__button {
+  background: linear-gradient(145deg, #243647, #1a2a36);
+  padding: 13px 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.tools__button:hover {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+.tools__button-active {
+  transform: scale(0.92);
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #1a2a36, #1a80e5);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+.input-block {
+  margin: 0 auto;
+}
+.input-block__title {
+  font-size: 22px;
+  padding: 5px 0 0 0;
+}
+.input-block__inner {
+  padding: 10px 0 0 0;
+  height: 400px;
+}
+
+.field {
+  position: relative;
+  background-color: #1a2a36;
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+}
+.field svg {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+}
+.field__point {
+  display: inline;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.point-new {
+  background-color: #d7672a;
+  border: 3px solid #46d6ae;
+}
+
+.point-standart {
+  background-color: #d7672a;
+  border: 3px solid #329579;
+}/*# sourceMappingURL=style.css.map */

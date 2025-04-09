@@ -187,94 +187,44 @@ a {
 		background: linear-gradient(145deg, #1a2a36, #1a80e5);
 		transition: background-color 0.6s ease, box-shadow 0.6s ease;
 	}
-	&__edit-area__inner{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 20px;
+}
+.input-block {
+	margin: 0 auto;
+	&__title {
+		font-size:22px;
+		padding: 5px 0 0 0;
 	}
-
-	&__edit-area__block-flex{
-		display: flex;
-		align-items: center;
-		
-		&__item-left{
-			flex: 1 1 auto;
-			margin: 0px 15px 0px 10px;
-		}
-		&__item-right{
-			flex: 1 1 auto;
-			margin: 0 10px;
-			
-		}
-	}
-	&__current-size{
-		font-size: 18px;
-	}
-	
-	&__edit-form{
-
-	}
-	&__input-size{
-		background-color: #1c2a38;
-		width: 35px;
-		height: 35px;
-		border-radius: 6px;
-		text-align: center;
-		margin-left: 10px;
+	&__inner {
+		padding: 10px 0 0 0;
+		height: 400px;
 	}
 }
-
-.grid{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	&__inner{
-		
-		display: grid;
-        grid-template-columns: repeat(10, 30px);
-        grid-gap: 2px;
-        margin: 20px;
+.field {
+	position: relative;
+	background-color: #1a2a36;
+	border-radius: 20px;
+	height: 100%;
+	width: 100%;
+	
+	svg {
+		position:absolute;
+		width: inherit;
+		height: inherit;
+	}
+	&__point {
+		display: inline;
+		position: absolute;
+		width: 20px;
+      	height: 20px;
+		border-radius: 50%;
 		
 	}
-	&__item{
-		width: 30px;
-		height: 30px;
-		background-color: #f0f0f0;
-		
-		padding: 10px;
-		cursor: pointer;
-		transition: background-color 0.4s;
-		transition: transform 0.4s;
-		&.active{
-			background-color: #243647;
-		}
-
-		&.start{
-			background-color: rgb(165, 56, 56);
-		}
-
-		&.end{
-			background-color: green;
-		}
-		&.border{
-			background-color: gray;
-		}
-
-		&:hover {
-			background-color: #2d83d8;
-			transform: scale(0.95);
-		}
-		&.yellow{
-			background-color: rgb(218, 218, 43);
-		}
-		&.orange{
-			background-color: orange;
-		}
-		&.red{
-			background-color: red;
-		}
-	}
-	
-	
+}
+.point-new {
+	background-color: #d7672a;
+	border: 3px solid #46d6ae;
+}
+.point-standart {
+	background-color: #d7672a;
+	border: 3px solid #329579;
 }
