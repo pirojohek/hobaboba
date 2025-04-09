@@ -1,595 +1,479 @@
+let data = {
+	dotCords: [],
+	alpha: 1.0,
+	beta: 2.0,
+	q: 40,
+	matrix: null,
+	d: 100,
+	p: 0.2,
+	stopProgram: false,
+
+	countSelectedDots: 0,
+	pathPlayer: [],
+	playerLengthWay: 0,
+
+	isGame: false,
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-let data = {
-	idStart: {
-		idX: 0,
-		idY: 0,
-	},
-	idEnd: {
-		idX: 9,
-		idY: 9,
-	},
-	matrixSize: 10,
-	clickedButtonId: "",
-
-	endNode: "",
-	startNode: "",
-}
-
-
-function editSize(){
-	const tools_edit_size = document.getElementById("tools__send-size");
-
-	tools_edit_size.addEventListener("click", function(event) {
-		event.preventDefault();
-	
-		const sizeForm = document.forms.editForm;
-		const displaySize = document.querySelector(".tools__current-size");
-	
-		try {
-			let newSize = sizeForm.sizeMaze.value;
-			sizeForm.sizeMaze.value = "";
-			newSize = parseInt(newSize);
-			generateMap(newSize);
-			displaySize.innerHTML = `${newSize}x${newSize}`;
-		} catch (err) {
-			alert(err);
-		}
+function stopProgram(){
+	const btn = document.getElementById("stop-program");
+	btn.addEventListener("click", (e) => {
+		data.stopProgram = true;
 	});
 }
 
+function drawLine(dot1, dot2, isPlayer){
 
-function mazeBorder(e){
-	const btn = e.target;
-	btn.classList.toggle("border");
-}
+	const [x1, y1] = [data.dotCords[dot1][0] + 7, 
+			data.dotCords[dot1][1] + 7];
+	const [x2, y2] = [data.dotCords[dot2][0] + 7, 
+			data.dotCords[dot2][1] + 7];
 
-function removeMazeEvent(){
-	const buttons = document.getElementsByClassName("grid__item");
-	for (const btn of buttons){
-		if (!btn.classList.contains("start") && !btn.classList.contains("end")){
-			btn.removeEventListener("click", mazeBorder);
-		}
+	const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+
+	const line = document.createElement("div");
+	line.classList.add("game__line");
+	if (isPlayer){
+		line.classList.add("game__line-player");
 	}
+	line.style.width = `${distance}px`;
+	line.style.left = `${x1}px`;
+	line.style.top = `${y1}px`;
+	line.style.transform = `rotate(${angle}deg)`;
+	const game = document.getElementById("game-map");
+	game.appendChild(line);
 }
 
+function removeLines(){
+	const game = document.querySelectorAll(".game__line");
 
-function updateMazeEvent(){
-	const buttons = document.getElementsByClassName("grid__item");
-
-	for (const btn of buttons){
-		
-		if (!btn.classList.contains("start") && !btn.classList.contains("end")){
-			
-			btn.addEventListener("click", mazeBorder);
-		}
-	}
-}
-
-
-
-function generateMap(n){
-	const gridInner = document.querySelector(".grid__inner");
-	gridInner.innerHTML = "";
-
-	for (let i = 0; i < n; i++){
-		for (let j = 0; j < n; j++){
-			const item = document.createElement("button");
-			item.className = "grid__item";
-			item.classList.add("border");
-			item.dataset.x = i;
-			item.dataset.y = j;
-			gridInner.append(item);
-		}
-	}
-	const startElement = document.querySelector('.grid__item[data-x="0"][data-y="0"]');
-	startElement.classList.remove("border");
-	
-	startElement.classList.add("start");
-	data.startNode = startElement;
-
-	const endElement = document.querySelector(`.grid__item[data-x="${n - 1}"][data-y="${n-1}"]`);
-	endElement.classList.remove("border");
-	endElement.classList.add("end");
-	data.endNode = endElement;
-	
-	data.idEnd.idX = n-1;
-	data.idEnd.idY = n - 1;
-
-	gridInner.style.gridTemplateColumns = `repeat(${n}, 30px)`;
-	data.matrixSize = n;
-}
-
-
-
-function cleanActiveButtons(){
-	switch (data.clickedButtonId){
-		case "change-walls":
-			const edit_btn = document.getElementById("change-walls");
-			edit_btn.classList.remove("tools__button-active");
-			data.clickedButtonId = "";
-			removeMazeEvent();
-		case "change-start":
-			const start_btn = document.getElementById("change-start");
-			start_btn.classList.remove("tools__button-active");
-			data.clickedButtonId = "";
-			removeStartEvent();
-		case "change-end":
-			const end_btn = document.getElementById("change-end");
-			end_btn.classList.remove("tools__button-active");
-			data.clickedButtonId = "";
-			removeEndEvent();
+	for (const line of game) {
+		line.remove();
 	}
 	
-	
 }
 
-function editWalls(){
-	const edit_btn = document.getElementById("change-walls");
-
-	edit_btn.addEventListener("click", function(e) {
-		
-		if (edit_btn.classList.contains("tools__button-active")){
-			edit_btn.classList.remove("tools__button-active");
-			data.clickedButtonId = "";
-			removeMazeEvent();
-		} else {
-			cleanActiveButtons();
-			edit_btn.classList.add("tools__button-active");
-			data.clickedButtonId = "change-walls";
-			updateMazeEvent();
-		}
-	});
+function eventRemoveLines(){
+	const btn = document.getElementById("clear-path");
+	btn.addEventListener("click", removeLines);
 }
 
-function startEvent(e){
-	const btn = e.target;
-	const btn_x = btn.dataset.x;
-	const btn_y = btn.dataset.y;
-	
-	const prevStartItem = document.querySelector(`.grid__item[data-x="${data.idStart.idX}"][data-y="${data.idStart.idY}"]`);
-	prevStartItem.classList.remove("start");
-	prevStartItem.classList.add("border");
+async function drawPath(path){
+	removeLines();
 
-	btn.classList.remove("border");
-	btn.classList.add("start");
-
-	data.idStart.idX = btn_x;
-	data.idStart.idY = btn_y;
-}
-
-function removeStartEvent(){
-	const buttons = document.getElementsByClassName("grid__item");
-
-	for (const btn of buttons){
-		
-		if (!btn.classList.contains("start") && !btn.classList.contains("end")){
-			btn.removeEventListener("click", startEvent);
-		}
-	}
-}
-
-function updateStartEvent(){
-	const buttons = document.getElementsByClassName("grid__item");
-
-	for (const btn of buttons){
-		
-		if (!btn.classList.contains("end")){
-			btn.addEventListener("click", startEvent);
-		}
-	}
-}
-
-function editStart(){
-	const edit_btn = document.getElementById("change-start");
-
-	edit_btn.addEventListener("click", function(e) {
-		
-		if (edit_btn.classList.contains("tools__button-active")){
-			edit_btn.classList.remove("tools__button-active");
-			data.clickedButtonId = "";
-			removeStartEvent();
-			
-		} else {
-			cleanActiveButtons();
-			edit_btn.classList.add("tools__button-active");
-			data.clickedButtonId = "change-start";
-			updateStartEvent();
-		}
-	});
-}
-
-
-function endEvent(e){
-	const btn = e.target;
-	const btn_x = btn.dataset.x;
-	const btn_y = btn.dataset.y;
-	
-	const prevStartItem = document.querySelector(`.grid__item[data-x="${data.idEnd.idX}"][data-y="${data.idEnd.idY}"]`);
-	prevStartItem.classList.remove("end");
-	prevStartItem.classList.add("border");
-
-	btn.classList.remove("border");
-	btn.classList.add("end");
-	data.idEnd.idX = btn_x;
-	data.idEnd.idY = btn_y;
-}
-
-function removeEndEvent(){
-	const buttons = document.getElementsByClassName("grid__item");
-
-	for (const btn of buttons){
-		
-		if (!btn.classList.contains("end")){
-			btn.removeEventListener("click", endEvent);
-		}
-	}
-}
-
-function updateEndEvent(){
-	const buttons = document.getElementsByClassName("grid__item");
-
-	for (const btn of buttons){
-		
-		if (!btn.classList.contains("end")){
-			btn.addEventListener("click", endEvent);
-		}
-	}
-}
-
-function editEnd(){
-	const edit_btn = document.getElementById("change-end");
-
-	edit_btn.addEventListener("click", function(e) {
-		
-		if (edit_btn.classList.contains("tools__button-active")){
-			edit_btn.classList.remove("tools__button-active");
-			data.clickedButtonId = "";
-			removeEndEvent();
-			
-		} else {
-			cleanActiveButtons();
-			edit_btn.classList.add("tools__button-active");
-			data.clickedButtonId = "change-end";
-			updateEndEvent();
-		}
-	});
-}
-
-
-
-function create2DArray(rows, cols) {
-	let array = [];
-	for (let i = 0; i < rows; i++) {
-		array[i] = [];
-		for (let j = 0; j < cols; j++) {
-			array[i][j] = 0; 
-		}
-	}
-	return array;
-}
-
-function cleanMap(){
-	for (let i = 0; i < data.matrixSize; i++){
-		for (let j = 0; j < data.matrixSize; j++){
-			const item = document.querySelector(`.grid__item[data-x="${i}"][data-y="${j}"]`);
-			if (!item.classList.contains("start") && !item.classList.contains("end") && !item.classList.contains("border")) {
-				item.classList.add("border");
-				item.classList.remove("yellow");
-				item.classList.remove("orange");
-				item.classList.remove("red");
-			}
-		}
-	}
-}
-
-
-async function generateMaze() {
-	cleanMap();
-	let map = create2DArray(data.matrixSize, data.matrixSize);
-	
-
-
-	let start = [data.idStart.idX, data.idStart.idY];
-	map[start[0]][start[1]] = 1;  
-	let walls = [];
-
-	function addWalls(x, y) {
-		if (x - 1 >= 0 && map[x - 1][y] === 0) {
-			walls.push([x - 1, y, 'up']);
-		}
-		if (x + 1 < data.matrixSize && map[x + 1][y] === 0) {
-			walls.push([x + 1, y, 'down']);
-		}
-		if (y - 1 >= 0 && map[x][y - 1] === 0) {
-			walls.push([x, y - 1, 'left']);
-		}
-		if (y + 1 < data.matrixSize && map[x][y + 1] === 0) {
-			walls.push([x, y + 1, 'right']);
-		}
-	}
-
-
-	addWalls(start[0], start[1]);
-
-
-	while (walls.length > 0) {
-
-		const randomIndex = Math.floor(Math.random() * walls.length);
-		const [x, y, direction] = walls[randomIndex];
-		walls.splice(randomIndex, 1);
-
-		if (direction === 'up' && x - 1 >= 0 && map[x - 1][y] === 0) {
-			map[x - 1][y] = 1;
-			map[x][y] = 1;
-			addWalls(x - 1, y);  
-			await sleep(50);
-			drawMazeGeneration([[x, y], [x - 1, y]]);
-		}
-		else if (direction === 'down' && x + 1 < data.matrixSize && map[x + 1][y] === 0) {
-			map[x + 1][y] = 1;
-			map[x][y] = 1;
-			addWalls(x + 1, y);
-			await sleep(50);
-			drawMazeGeneration([[x, y], [x + 1, y]]);
-		}
-		else if (direction === 'left' && y - 1 >= 0 && map[x][y - 1] === 0) {
-			map[x][y - 1] = 1;
-			map[x][y] = 1;
-			addWalls(x, y - 1);
-			await sleep(50);
-			drawMazeGeneration([[x, y], [x, y - 1]]);
-		}
-		else if (direction === 'right' && y + 1 < data.matrixSize && map[x][y + 1] === 0) {
-			map[x][y + 1] = 1;
-			map[x][y] = 1;
-			addWalls(x, y + 1);
-			await sleep(50);
-			drawMazeGeneration([[x, y], [x, y + 1]]);
-		}	
-	}
-
-
-	if (map[data.idEnd.idX][data.idEnd.idY] != 1) {
-		map[data.idEnd.idX][data.idEnd.idY] = 1;  
+	for (let i = 1; i < path.length; i++){
+		drawLine(path[i - 1], path[i], false);
 		await sleep(50);
-		let newWay = [];
-
-		if (data.idEnd.idX + 1 < data.matrixSize ){
-			if (map[data.idEnd.idX + 1][data.idEnd.idY] == 1){
-				return map;
-			}else {
-				newWay.push([data.idEnd.idX + 1, data.idEnd.idY]);
-			}
-		} 
-
-		if (data.idEnd.idX - 1 >= 0 ) {
-			if (map[data.idEnd.idX - 1][data.idEnd.idY] == 1){
-				return map;
-			}else {
-				newWay.push([data.idEnd.idX - 1, data.idEnd.idY]);
-			}
-		} 
-
-		if (data.idEnd.idY + 1 < data.matrixSize ) {
-			if (map[data.idEnd.idX][data.idEnd.idY + 1] == 1){
-				return map;
-			}else {
-				newWay.push([data.idEnd.idX, data.idEnd.idY + 1]);
-			}	
-		} 
-
-		if (data.idEnd.idY - 1 >= 0 ) {
-			if (map[data.idEnd.idX][data.idEnd.idY - 1] == 1){
-				return map;
-			}else {
-				newWay.push([data.idEnd.idX, data.idEnd.idY - 1]);
-			}
-		} 
-
-		const randomIndex = Math.floor(Math.random() * newWay.length);
-
-		map[newWay[randomIndex][0]][newWay[randomIndex][1]] = 1;
-		console.log(map);
-		drawMazeGeneration([[newWay[randomIndex][0], newWay[randomIndex][1]]]);
-
-
 	}
-
-	return map;
+	drawLine(path[path.length - 1], path[0], false);
+	return false;
 }
 
-function drawMazeGeneration(indexes) {
-    for (let index of indexes) {
-        const item = document.querySelector(`.grid__item[data-x="${index[0]}"][data-y="${index[1]}"]`);
-        if (!item.classList.contains("start") && !item.classList.contains("end")) {
-            item.classList.toggle("border");
-        }
-    }
-}
-
-function getMap(){
-	let map = create2DArray(data.matrixSize, data.matrixSize);
-
-	for (let i = 0; i < data.matrixSize; i++){
-		for (let j = 0; j < data.matrixSize; j++){
-			const el = document.querySelector(`.grid__item[data-x="${i}"][data-y="${j}"]`);
-			if (!el.classList.contains("border")){
-				map[i][j] = 1;
-			}
-		}
-	}
-	map[data.idStart.idX][data.idStart.idY] = 0;
-	map[data.idEnd.idX][data.idEnd.idY] = 1;
-	return map;
-}
-
-
-class Node{
-	constructor(parent, position){
-		this.parent = parent;
-		this.position = position;
-
-		this.g = 0; // обычное расстояние
-		this.f = 0; // общее расстояние
-		this.h = 0; // эвристическое расстояние
-	}
-	calculateh(node1, node2){
-		return Math.abs(node1.position[0] - node2.position[0]) + Math.abs(node1.position[1] - node2.position[1]);
-	}
-}
-
-function cleanPath(){
-	for (let i = 0; i < data.matrixSize; i++){
-		for (let j = 0; j < data.matrixSize; j++){
-			const el = document.querySelector(`.grid__item[data-x="${i}"][data-y="${j}"]`);
-			el.classList.remove("orange");
-			el.classList.remove("red");
-			el.classList.remove("yellow");
-		}
-	}
-}
-function cleanSupportColors(){
-	for (let i = 0; i < data.matrixSize; i++){
-		for (let j = 0; j < data.matrixSize; j++){
-			const el = document.querySelector(`.grid__item[data-x="${i}"][data-y="${j}"]`);
-			el.classList.remove("orange");
-			el.classList.remove("yellow");
-		}
-	}
-}
-
-async function drawPath(path, lastNode){
-	let node = lastNode.parent;
-
-	while (node.parent != null){
-		const el = document.querySelector(`.grid__item[data-x="${node.position[0]}"][data-y="${node.position[1]}"]`);
-		await sleep(50);
-		el.classList.remove("orange");
-		el.classList.add("red");
-		
-		node = node.parent;
-	}
-	cleanSupportColors();
-}
-
-async function a_star(){
-	cleanPath();
-	let maze = getMap();
+function addDot(e){
+	const rect = e.target.getBoundingClientRect();
 	
-	let start = new Node(null, [data.idStart.idX, data.idStart.idY]);
-	let end = new Node(null, [data.idEnd.idX, data.idEnd.idY]);
-
-	let open_list = [];
-	let close_list = [];
-	let map = create2DArray(data.matrixSize, data.matrixSize);
-
-	open_list.push(start);
-
-	while (open_list.length > 0){
-		let current_node = open_list[0];
-		let current_index = 0;
-
-		for (let i = 0; i < open_list.length; i++){
-			if (open_list[i].f < current_node.f) {
-				current_node = open_list[i];
-				current_index = i;
-			}
-		}
-		open_list.splice(current_index, 1);
-		close_list.push(current_node);
-		
-		if (current_node.position[0] == end.position[0] && current_node.position[1] == end.position[1]){
+	const cordX = e.clientX - rect.left;
+	const cordY = e.clientY - rect.top;
 	
-			drawPath(map, current_node);
+	const dot = document.createElement("div");
+	dot.classList.add("game__dot");
+
+	dot.style.left = `${cordX - 7}px`;
+	dot.style.top = `${cordY - 7}px`;
+	data.dotCords.push([cordX - 7, cordY - 7]);
+	dot.dataset.idDot = data.dotCords.length;
+	
+	e.target.appendChild(dot);
+
+}
+
+function getMatrix(){
+	let matrix = [];
+	for (let i = 0; i < data.dotCords.length; i++){
+		matrix[i] = [];
+		for (let j = 0; j < data.dotCords.length; j++){
+			const x1 = data.dotCords[i][0];
+			const y1 = data.dotCords[i][1];
+			const x2 = data.dotCords[j][0];
+			const y2 = data.dotCords[j][1];
+
+
+			const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+			matrix[i][j] = [0.2, data.d / distance, distance];
+		}
+	}
+	return matrix;
+}
+
+
+function getTransitionProbability(visited, matrix, currentVertex){
+	let all = 0;
+	for (let i = 0; i < data.dotCords.length; i++) {
+		if (visited[i] == 0) {
+			all += Math.pow(matrix[currentVertex][i][0], data.alpha) *
+			Math.pow(matrix[currentVertex][i][1], data.beta);
+		}
+	}
+	
+	let variants = Array(data.dotCords.length).fill(0);
+	for (let i = 0; i < data.dotCords.length; i++){
+		if (visited[i] == 0){
+			variants[i] = (Math.pow(matrix[currentVertex][i][0], data.alpha) *
+			Math.pow(matrix[currentVertex][i][1], data.beta)) / all;
+		}
+	}
+	return variants;
+	
+}
+
+function getNexDot(transitionProbability){
+	let randomNum = Math.random();
+	let currentVertex = 0;
+	let probability = 0;
+
+	for (let i = 0; i < transitionProbability.length; i++){
+		probability += transitionProbability[i];
+		if (randomNum <= probability){
+			currentVertex = i;
 			break;
 		}
-
-		const node = document.querySelector(`.grid__item[data-x="${current_node.position[0]}"][data-y="${current_node.position[1]}"]`);
-		if (!node.classList.contains("start") && !node.classList.contains("end")){
-			await sleep(50);
-			node.classList.remove("yellow");
-			node.classList.add("orange");
-		}
-		
-		let nextNodes = [];
-		if (current_node.position[0] - 1 >= 0 && maze[current_node.position[0] - 1][current_node.position[1]] != 0) {
-			nextNodes.push(new Node(current_node, [current_node.position[0] - 1, current_node.position[1]]));
-		}
-
-		if (current_node.position[0] + 1 < data.matrixSize && maze[current_node.position[0] + 1][current_node.position[1]] != 0){
-			nextNodes.push(new Node(current_node, [current_node.position[0] + 1, current_node.position[1]]));
-		}
-
-		if (current_node.position[1] + 1 < data.matrixSize && maze[current_node.position[0]][current_node.position[1] + 1] != 0) {
-			nextNodes.push(new Node(current_node, [current_node.position[0], current_node.position[1] + 1]));
-		}
-
-		if (current_node.position[1] - 1 >= 0 && maze[current_node.position[0]][current_node.position[1] - 1] != 0) {
-			nextNodes.push(new Node(current_node, [current_node.position[0], current_node.position[1] - 1]));
-		}
-
-		for (let node of nextNodes){
-
-			if (close_list.some(n => n.position[0] === node.position[0] && n.position[1] === node.position[1])) {
-                continue;
-            }
-
-			node.g = current_node.g + 1;
-			node.h = node.calculateh(end, node);
-			node.f = node.h + node.g;
-			
-			
-
-			let flag = true;
-			for (let i = 0; i < open_list.length; i++){
-				if (open_list[i].position[0] == node.position[0] && open_list[i].position[1] == node.position[1]) {
-					if (open_list[i].f <= node.f){
-						flag = false;
-					} else {
-						open_list.splice(i, 1);
-						break;
-					}
-				}
-			}
-
-			if (flag){
-				open_list.push(node);
-				const el = document.querySelector(`.grid__item[data-x="${node.position[0]}"][data-y="${node.position[1]}"]`);
-				
-				if (!el.classList.contains("start")){
-					await sleep(50);
-					if (!el.classList.contains("end")){
-						await sleep(50);
-						el.classList.add("yellow");
-					}
-					
-				}
-			}
-
-		}
 	}
+	return currentVertex;
 }
 
 
-window.addEventListener('load', () => {
-	generateMap(10);
-	editSize();
-	editWalls();
-	editStart();
-	editEnd();
+function updatePheramone(matrix, ants){
+	for (let ant of ants){
+		let path = ant[0];
+		let distance = ant[1];
+		for (let i = 0; i < path.length - 1; i++) {
+			const currentVertex = path[i];
+			const nextVertex = path[i + 1];
+			matrix[currentVertex][nextVertex][0] =
+				(1 - data.p) * matrix[currentVertex][nextVertex][0] +
+				data.q / distance;
+		}
+	}
+	return matrix
+}
+
+async function formic(withPlayer = false){
+	let matrix = getMatrix();
+	let ants = [];
+	let bestResult = 1e9;
+	let lastBestResult = 1e9;
+	let bestPath = [];
+
+	for(let k = 0; k < 1000; k++){
+		if (data.stopProgram){
+			data.stopProgram = false;
+			break;
+		}
+		for (let i = 0; i < data.dotCords.length; i++){
+
+			let visited = Array(data.dotCords.length).fill(0);
+			visited[i] = 1; // посещенные вершины
 	
-	const btn = document.getElementById("generate-path");
-	btn.addEventListener("click", (e) => {
-		let map = generateMaze();
-		
+			let path = []; // создаю путь
+			path.push(i);
+	
+			let countVisited = 1;
+			let totalDistance = 0;
+	
+			while (countVisited < data.dotCords.length) {
+				let transitionProbability = getTransitionProbability(visited, matrix, path[path.length - 1]);
+				let nextDot = getNexDot(transitionProbability);
+				totalDistance += matrix[path[path.length - 1]][nextDot][2];
+				path.push(nextDot);
+				visited[nextDot] = 1;
+				countVisited += 1;
+			}
+
+
+			totalDistance += matrix[path[0]][path[path.length - 1]][2];
+			if (bestResult > totalDistance){
+				bestResult = totalDistance;
+				bestPath = path;
+			}
+			
+			ants[i] = [path, totalDistance];
+		}
+
+		const iteration = document.getElementById("current-iteration");
+		iteration.innerHTML = `${k}`;
+		await sleep(30);
+		matrix = updatePheramone(matrix, ants);
+
+
+		if (bestResult < lastBestResult){
+			if(withPlayer){
+				let persent = (data.playerLengthWay - bestResult) / data.playerLengthWay * 100;
+				const block = document.getElementById("machine-better");
+				block.innerHTML = persent + "%";
+			}
+			lastBestResult = bestResult;
+			const minpath = document.getElementById("min-path");
+			minpath.innerHTML = `${lastBestResult}`;
+			const lastiteration = document.getElementById("last-iteration");
+			lastiteration.innerHTML = `${k}`;
+			await drawPath(bestPath);
+		}
+	}
+
+	
+}
+
+
+function btnAddDots(e){
+	const btn = e.target;
+	const game_map = document.querySelector(".game__inner");
+	if (btn.classList.contains("tools__button-active")) {
+		btn.classList.remove("tools__button-active");
+		game_map.removeEventListener("click", addDot);
+	} else {
+		btn.classList.add("tools__button-active");
+		game_map.addEventListener("click", addDot);
+	}
+}
+
+function onclickBtnAddDots(){
+	const btn = document.getElementById("add-dots");
+	btn.addEventListener("click", btnAddDots);
+}
+
+function btnStartProgram(e){
+	const btn = e.target;
+	formic();
+}
+
+function onclickStart(){
+	const btn = document.getElementById("start-program");
+	btn.addEventListener("click", btnStartProgram);
+}
+
+function inputAlhpa(){
+	const input = document.getElementById("input-alpha");
+	input.value = data.alpha;
+
+	const inputValue = document.getElementById("input-alpha-value");
+	inputValue.innerHTML = `${data.alpha}`;
+
+	input.addEventListener("input", (e) =>{
+		inputValue.innerHTML = input.value;
+		data.alpha = input.value;
 	});
 
-	const btn_start = document.getElementById("button-start");
-	btn_start.addEventListener("click", (e) => {
-		a_star();
-	})
-});
+}
 
+function inputBeta(){
+	const input = document.getElementById("input-beta");
+	input.value = data.beta;
+
+	const inputValue = document.getElementById("input-beta-value");
+	inputValue.innerHTML = `${data.beta}`;
+
+	input.addEventListener("input", (e) =>{
+		inputValue.innerHTML = input.value;
+		data.beta = input.value;
+	});
+}
+
+function deleteDots(){
+	const btn = document.getElementById("delete-dots");
+	const currentIteration = document.getElementById("current-iteration");
+	const lastIteration = document.getElementById("last-iteration");
+			const minPath = document.getElementById("min-path");
+
+
+	btn.addEventListener("click", (e) => {
+		const gameMap = document.getElementById("game-map");
+		
+		while (gameMap.children.length != 0){
+			const dot = gameMap.children[0];
+			dot.removeEventListener("click", selectedDots);
+			dot.remove();
+		}
+		minPath.innerHTML = "";
+
+		lastIteration.innerHTML = "";
+		data.dotCords = [];
+		currentIteration.innerHTML = "";
+
+	});
+}
+
+
+function updatePlayerLength(dot1, dot2){
+	const [x1, y1] = [data.dotCords[dot1][0] + 7, 
+			data.dotCords[dot1][1] + 7];
+	const [x2, y2] = [data.dotCords[dot2][0] + 7, 
+			data.dotCords[dot2][1] + 7];
+
+	const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	const playerLength = document.getElementById("sparing__current-length");
+
+	data.playerLengthWay += distance;
+	playerLength.innerHTML = data.playerLengthWay;
+}
+
+
+
+function selectedDots(e){
+	data.pathPlayer.push(e.target.dataset.idDot - 1);
+	data.countSelectedDots += 1;
+	removeEventOnDots(e.target.dataset.idDot);
+	if (data.countSelectedDots > 1){
+		drawLine(data.pathPlayer[data.countSelectedDots - 1], data.pathPlayer[data.countSelectedDots - 2], true);
+		updatePlayerLength(data.pathPlayer[data.countSelectedDots - 1], data.pathPlayer[data.countSelectedDots - 2]);
+	} 
+	if (data.countSelectedDots == data.dotCords.length){
+		drawLine(data.pathPlayer[0], data.pathPlayer[data.pathPlayer.length - 1], true);
+		updatePlayerLength(data.pathPlayer[0], data.pathPlayer[data.pathPlayer.length - 1]);
+	}
+	
+}
+
+function addEventOnDots(){
+	for (let i = 0; i < data.dotCords.length; i++){
+		const dot = document.querySelector(`.game__dot[data-id-dot="${i + 1}"]`);
+		dot.classList.add("game__dot-sparing");
+		dot.addEventListener("click", selectedDots);
+	}
+}
+
+function removeEventOnDots(dotId){
+	const dot = document.querySelector(`.game__dot[data-id-dot="${dotId}"]`);
+	dot.classList.remove("game__dot-sparing");
+	dot.removeEventListener("click", selectedDots);
+}
+
+function addConfirm(e){
+	if (data.countSelectedDots == data.dotCords.length){
+		e.target.removeEventListener("click", addConfirm);
+		formic(true);
+	} else {
+		alert("Выберите все точки");
+	}
+}
+
+function winMachine(){
+	const sparingBlock = document.querySelector(".sparing");
+	sparingBlock.classList.add("sparing-visited");
+
+	addEventOnDots();
+
+	const confirm = document.getElementById("is-confirm");
+	confirm.addEventListener("click", addConfirm);
+
+}
+
+function clearPathPlayer(){
+	const lines = document.querySelectorAll(".game__line-player");
+	for (let line of lines){
+		line.remove();
+	}
+	addEventOnDots();
+	const path = document.getElementById("sparing__current-length");
+	path.innerHTML = "";
+
+	data.pathPlayer = [];
+	data.playerLengthWay = 0;
+	data.countSelectedDots = 0;
+}
+
+function drawPathPlayer(){
+	const lines = document.querySelectorAll(".game__line-player");
+	for (let line of lines){
+		line.remove();
+	}
+
+	for (let i = 1; i < data.countSelectedDots; i++){
+		drawLine(data.pathPlayer[i - 1], data.pathPlayer[i], true);
+	}
+	drawLine(data.pathPlayer[data.countSelectedDots - 1], data.pathPlayer[0], true);
+}
+
+function addBtnDrawPathPlayer(){
+	const btn = document.getElementById("drawPath");
+	btn.addEventListener("click", drawPathPlayer);
+}
+
+
+function offSparing(e){
+	const btnSparing = document.getElementById("sparing");
+	btnSparing.classList.remove("tools__button-active");
+
+	const btnAdd = document.getElementById("add-dots");
+	btnAdd.classList.remove("tools__button-active");
+
+	e.target.removeEventListener("click", offSparing);
+
+	e.target.classList.remove("tools__sparing-on");
+	e.target.classList.add("tools__sparing-off");
+
+	const spar = document.querySelector(".sparing");
+	spar.classList.remove("sparing-visited");
+	
+	clearPathPlayer();
+
+	const btnDrawPlayerPath = document.getElementById("drawPath");
+	btnDrawPlayerPath.removeEventListener("click", drawPathPlayer);
+	
+	
+}
+
+
+
+function btnClearPlayerPath(){
+	const btn = document.getElementById("clear-way");
+	btn.addEventListener("click", clearPathPlayer);
+
+}
+
+
+function play(){
+	const btn = document.getElementById("sparing");
+	btn.addEventListener("click", (e) => {
+		if (data.dotCords.length >= 3){
+			btn.classList.add("tools__button-active");
+			const btnAdd = document.getElementById("add-dots");
+
+			btnAdd.classList.remove("tools__button-active");
+
+			const btnGiveUp = document.getElementById("sparing-off");
+			btnGiveUp.addEventListener("click", offSparing);
+
+			btnClearPlayerPath();
+			addBtnDrawPathPlayer();
+
+			btnGiveUp.classList.remove("tools__button-off");
+			btnGiveUp.classList.add("tools__button-on");
+
+			btnAdd.removeEventListener("click", btnAddDots);
+			const game = document.getElementById("game-map");
+			game.removeEventListener("click", addDot)
+			winMachine();
+		} else {
+			alert("Добавьте хотя бы 3 точки");
+		}
+	});
+	
+}
+
+
+window.addEventListener("load", () =>{
+	play();
+	stopProgram();
+	deleteDots();
+	inputAlhpa();
+	inputBeta();
+	onclickBtnAddDots();
+	onclickStart();
+	eventRemoveLines();
+});
