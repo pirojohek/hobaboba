@@ -178,6 +178,47 @@ a {
   transition: background-color 0.6s ease, box-shadow 0.6s ease;
 }
 
+.parameters__title {
+  padding: 20px 0px 0px 0px;
+  font-size: 22px;
+}
+.parameters__content {
+  width: 100%;
+}
+.parameters__sub-title {
+  padding: 20px 0px 5px 0px;
+  font-size: 18px;
+}
+.parameters__blocks {
+  display: flex;
+  justify-items: center;
+  justify-content: space-around;
+  padding: 20px;
+}
+.parameters input {
+  border: 2px solid #243647;
+}
+.parameters__button {
+  background: linear-gradient(145deg, #243647, #1a2a36);
+  padding: 13px 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.parameters__button:hover {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+.parameters__button-active {
+  transform: scale(0.92);
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #1a2a36, #1a80e5);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+
 .input-block {
   margin: 0 auto;
 }
@@ -188,6 +229,13 @@ a {
 .input-block__inner {
   padding: 10px 0 0 0;
   height: 400px;
+}
+.input-block__text {
+  display: flex;
+  justify-content: space-around;
+  visibility: hidden;
+  font-size: 18px;
+  font-style: italic;
 }
 
 .field {
@@ -218,4 +266,12 @@ a {
 .point-standart {
   background-color: #d7672a;
   border: 3px solid #329579;
+}
+
+#iterator {
+  color: #3e698a;
+}
+
+#length {
+  color: #3e698a;
 }/*# sourceMappingURL=style.css.map */

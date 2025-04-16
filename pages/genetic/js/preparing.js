@@ -1,5 +1,5 @@
 const getPointsButton = document.getElementById('get-points');
-const screen = document.getElementById('screen');
+var screen = document.getElementById('screen');
 const field = document.querySelector(".field");
 
 var countPoints = 0;
@@ -34,14 +34,16 @@ function getPoint(e) {
             top: ${y-10}px;
         `);
     field.appendChild(currentPoint);
+    
 
-    if(previousPoint != null) {
+    // Черчение линий в процессе проставления точек
+    // if(previousPoint != null) {
         
-        screen.insertAdjacentHTML(
-            "beforeend",
-            `<line x1 = '${previousPoint.x}' y1 = '${previousPoint.y}' x2 = '${x}' y2 = '${y}' stroke = "blue" stroke-width = "2">`
-        );
-    }
+    //     screen.insertAdjacentHTML(
+    //         "beforeend",
+    //         `<line x1 = '${previousPoint.x}' y1 = '${previousPoint.y}' x2 = '${x}' y2 = '${y}' stroke = "blue" stroke-width = "2">`
+    //     );
+    // }
     previousPoint = point;
     previousPointObject = currentPoint;
 }
@@ -51,8 +53,18 @@ function setAnimationPoint() {
 }
 
 function runProcessOfPreparing() {
-    field.addEventListener("mousedown", getPoint);
-    field.addEventListener("mouseup", setAnimationPoint);
+
+    if(getPointsButton.classList.contains("tools__button-active")) {
+        getPointsButton.classList.toggle("tools__button-active");
+        field.removeEventListener("mousedown",getPoint);
+        field.removeEventListener("mouseup", setAnimationPoint);
+    }
+    else {
+        getPointsButton.classList.toggle("tools__button-active");
+        field.addEventListener("mousedown", getPoint);
+        field.addEventListener("mouseup", setAnimationPoint);
+    }
+   
 }
 
 getPointsButton.addEventListener("click", runProcessOfPreparing);

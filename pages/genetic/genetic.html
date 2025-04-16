@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Hobaboba</title>
+	<title>Генетический алгоритм</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -25,6 +25,24 @@
 		<div class="content">
 			<div class="content__inner">
 				<h1 class = "content__title">Генетический алгоритм нахождения оптимального пути</h1>
+				<div class = "parameters">
+					<h2 class="parameters__title">Параметры (ввести все - <span style="font-style: italic; font-weight: 700;">Enter</span>)</h2>
+					<div class="parameters__content">
+						<div class="parameters__blocks">
+							<div class="parameters__block">
+								<h2 class="parameters__sub-title">Популяция</h2>
+								<p style="font-style: italic;">Рекомендуется ~50</p>
+								<input id = "inputPopulation" type="number" placeholder="Ввод">
+							</div>
+							<div class="parameters__block">
+								<h2 class="parameters__sub-title">Количество итераций</h2>
+								<input id = "inputIteration" type="number" placeholder="Ввод">
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
 				<div class="tools">
 					<h2 class="tools__title">Инструменты</h2>
 					<div class="tools__content">
@@ -34,14 +52,18 @@
 							<button id = "run-algorithm" class="tools__button">Запустить алгоритм</button>
 						</div>
 					</div>
-					<div class="input-block">
-						<h2 class="input-block__title">Поле расставления точек</h2>
-						<div class="input-block__inner">
-							<div class="field">
-								<svg id="screen">
-									<line x1 = '0' y1 = '0' x2 = '50' y2 = '50' stroke = "blue" stroke-width = "2">
-								</svg>
-							</div>
+				</div>
+				<div class="input-block">
+					<h2 class="input-block__title">Поле расставления точек</h2>
+					<div class="input-block__inner">
+						<h3 class="input-block__text">
+
+							<div>Итернация: <span id = "iterator"></span></div>
+							<div>Текущая длина: <span id = "length"></span></div>
+						</h3>
+						<div class="field">
+							<svg id="screen">
+							</svg>
 						</div>
 					</div>
 				</div>
@@ -51,6 +73,8 @@
 
 
 	<script src="./js/preparing.js"></script>
+	<script src = "./js/cleaning.js"></script>
+	<script src = "./js/setParameters.js"></script>
 	<script src="./js/scripts.js"></script>
 </body>
 </html>
