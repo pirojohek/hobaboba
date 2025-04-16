@@ -2,10 +2,25 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>РИСОВАЛКА</title>
+        <title>Нейронка</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body style="display: grid; justify-content: center; align-items: center; place-items: center;">
+        <header class="header">
+			<div class="page-name"><a href="#">HobaBoba</a></div>
+
+			<nav class="menu">
+				<ul class="menu__list">
+					<li class="menu__item"><a href="#">Главная страница</a></li>
+					<li class="menu__item"><a href="#">A* Search</a></li>
+					<li class="menu__item"><a href="#">Кластеризация</a></li>
+					<li class="menu__item"><a href="#">Генетический</a></li>
+					<li class="menu__item"><a href="#">Муравьиный</a></li>
+					<li class="menu__item"><a href="#">Дерево</a></li>
+					<li class="menu__item menu__item-active"><a href="#">Нейронка</a></li>
+				</ul> 
+			</nav>
+		</header>
         <canvas id="canvas" width="50" height="50" style="background-color:#eee; border: 1px solid #ccc;"></canvas>
         <canvas id="new_canvas" width="28" height="28" style="background-color:#eee; border: 1px solid #ccc;"></canvas>
         <script type="module" src="./logic.js"></script>
