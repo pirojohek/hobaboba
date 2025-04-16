@@ -1,0 +1,1 @@
+write node --force-node-api-uncaught-exceptions-policy=true server.js to start server
