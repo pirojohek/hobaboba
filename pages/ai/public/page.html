@@ -5,7 +5,7 @@
         <title>Нейронка</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body style="display: grid; justify-content: center; align-items: center; place-items: center;">
+    <body>
         <header class="header">
 			<div class="page-name"><a href="#">HobaBoba</a></div>
 
@@ -21,41 +21,45 @@
 				</ul> 
 			</nav>
 		</header>
-        <canvas id="canvas" width="50" height="50" style="background-color:#eee; border: 1px solid #ccc;"></canvas>
-        <canvas id="new_canvas" width="28" height="28" style="background-color:#eee; border: 1px solid #ccc;"></canvas>
-        <script type="module" src="./logic.js"></script>
-        <button id="button_define" class="tools__button" type="button" onclick="define()">define</button>
-        <button id="button_clear" class="tools__button" type="button" onclick="clear()">clear</button>
-        <div id="parent" width="50">
-            <div id="0">
-                0: <span id="zero">0</span>
+        <div style="display: grid; justify-content: center; align-items: center; place-items: center; margin-top: 10px;">
+            <canvas id="canvas" width="50" height="50" style="background-color:#eee; border: 2px solid #1a80e5; margin-bottom: 10px;"></canvas>
+            <canvas id="new_canvas" width="28" height="28" style="background-color:#eee; border: 2px solid #1a80e5; margin-bottom: 10px;"></canvas>
+            <script type="module" src="./logic.js"></script>
+            <div style="display: flex;">
+                <button id="button_clear" class="tools__button" type="button" onclick="clear()">clear</button>
+                <button id="button_define" class="tools__button" type="button" onclick="define()">define</button>
             </div>
-            <div id="1">
-                1: <span id="one">0</span>
-            </div>
-            <div id="2">
-                2: <span id="two">0</span>
-            </div>
-            <div id="3">
-                3: <span id="thrie">0</span>
-            </div>
-            <div id="4">
-                4: <span id="four">0</span>
-            </div>
-            <div id="5">
-                5: <span id="five">0</span>
-            </div>
-            <div id="6">
-                6: <span id="six">0</span>
-            </div>
-            <div id="7">
-                7: <span id="seven">0</span>
-            </div>
-            <div id="8">
-                8: <span id="eight">0</span>
-            </div>
-            <div id="9">
-                9: <span id="nine">0</span>
+            <div id="parent" width="50" style="border: 2px solid #1a80e5; padding: 3px; border-radius: 5px;">
+                <div id="0">
+                    0: <span id="zero">0</span>
+                </div>
+                <div id="1">
+                    1: <span id="one">0</span>
+                </div>
+                <div id="2">
+                    2: <span id="two">0</span>
+                </div>
+                <div id="3">
+                    3: <span id="thrie">0</span>
+                </div>
+                <div id="4">
+                    4: <span id="four">0</span>
+                </div>
+                <div id="5">
+                    5: <span id="five">0</span>
+                </div>
+                <div id="6">
+                    6: <span id="six">0</span>
+                </div>
+                <div id="7">
+                    7: <span id="seven">0</span>
+                </div>
+                <div id="8">
+                    8: <span id="eight">0</span>
+                </div>
+                <div id="9">
+                    9: <span id="nine">0</span>
+                </div>
             </div>
         </div>
     </body>

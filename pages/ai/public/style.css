@@ -162,12 +162,15 @@
   }
   .tools__button {
     background: linear-gradient(145deg, #243647, #1a2a36);
-    padding: 13px 30px;
+    padding: 7px 30px;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 12px;
     color: white;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   .tools__button:hover {
     transform: scale(0.95);
