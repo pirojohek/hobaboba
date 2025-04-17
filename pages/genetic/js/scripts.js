@@ -290,10 +290,10 @@ async function genetic() {
             currentMn = Math.min(currentMn, getFitness(item,   data, COUNT_POINTS));
         }
         
-        if(mn != 10000000) len.innerHTML = mn;
+        
 
         if(currentMn != mn) {
-            
+            len.innerHTML = currentMn;
             
             let path = population[0];
             

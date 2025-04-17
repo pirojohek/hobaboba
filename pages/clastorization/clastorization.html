@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Генетический алгоритм</title>
+	<title>Кластеризация</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -24,14 +24,14 @@
 		</header>
 		<div class="content">
 			<div class="content__inner">
-				<h1 class = "content__title">Генетический алгоритм нахождения оптимального пути</h1>
+				<h1 class = "content__title">Кластеризация точек на плоскости</h1>
 				<div class = "parameters">
 					<h2 class="parameters__title">Параметры (ввести все - <span style="font-style: italic; font-weight: 700;">Enter</span>)</h2>
 					<div class="parameters__content">
 						<div class="parameters__blocks">
 							<div class="parameters__block">
-								<h2 class="parameters__sub-title">Популяция</h2>
-								<p style="font-style: italic;">Рекомендуется ~50</p>
+								<h2 class="parameters__sub-title">Количество кластеров (k-means)</h2>
+								<p style="font-style: italic;">Не более 50 (цветов мало)</p>
 								<input id = "inputPopulation" type="number" placeholder="Ввод">
 							</div>
 							<div class="parameters__block">
@@ -42,6 +42,7 @@
 						<div class="parameters__blocks">
 							<button class="parameters__button" id = "set-values">Ввести значения</button>
 						</div>
+						
 					</div>
 					
 					
@@ -60,13 +61,10 @@
 					<h2 class="input-block__title">Поле расставления точек</h2>
 					<div class="input-block__inner">
 						<h3 class="input-block__text">
-
-							<div>Итерация: <span id = "iterator"></span></div>
-							<div>Текущая длина: <span id = "length"></span></div>
+							
 						</h3>
 						<div class="field">
-							<svg id="screen">
-							</svg>
+							
 						</div>
 					</div>
 				</div>
