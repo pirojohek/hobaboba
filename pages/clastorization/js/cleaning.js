@@ -5,8 +5,15 @@ function clear() {
     
     if(isWorking) return;
 
-    field.innerHTML = "";
+    mainField.innerHTML = "";
+    kMeansField.innerHTML = "";
+    dbscanField.innerHTML = "";
     
+    mainField.style.display = "block";
+    kMeansField.style.display = "none";
+    dbscanField.style.display = "none";
+    options.style.display = "none";
+
     while(arrayOfPoints.length != 0) {
         arrayOfPoints.pop();
     }
@@ -19,8 +26,8 @@ function setClear() {
     clear();
 }
 function removeAnimation() {
-    buttonCleaning.classList.toggle("tools__button-active");
+    if(buttonCleaning.classList.contains("tools__button-active")) buttonCleaning.classList.toggle("tools__button-active");
 }
 
 buttonCleaning.addEventListener("mousedown", setClear);
-buttonCleaning.addEventListener("mouseup", removeAnimation);
+document.addEventListener("mouseup", removeAnimation);

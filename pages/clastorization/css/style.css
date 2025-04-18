@@ -186,17 +186,29 @@ a {
   width: 100%;
 }
 .parameters__sub-title {
-  padding: 20px 0px 5px 0px;
   font-size: 18px;
+  text-align: center;
+  font-weight: 500;
+}
+.parameters__sub-block {
+  padding: 10px 10px;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.parameters__sub-block p {
+  font-style: italic;
+}
+.parameters__sub-block input {
+  border: 2px solid #243647;
 }
 .parameters__blocks {
   display: flex;
   justify-items: center;
   justify-content: space-around;
   padding: 20px;
-}
-.parameters input {
-  border: 2px solid #243647;
 }
 .parameters__button {
   background: linear-gradient(145deg, #243647, #1a2a36);
@@ -258,6 +270,62 @@ a {
   border-radius: 50%;
 }
 
+.mini-field {
+  background-color: #1a2a36;
+  border-radius: 20px;
+  margin: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mini-field__point {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.options {
+  display: none;
+}
+.options__title {
+  padding: 20px 0px 0px 0px;
+  font-size: 22px;
+}
+.options__content {
+  width: 100%;
+}
+.options__commands {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+.options__button {
+  background: linear-gradient(145deg, #243647, #1a2a36);
+  padding: 13px 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.options__button:hover {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+.options__button-active {
+  transform: scale(0.92);
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #1a2a36, #1a80e5);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+#k-means-field, #dbscan-field, #other-field {
+  display: none;
+}
+
 .point-new {
   background-color: #d7672a;
   border: 3px solid #46d6ae;
@@ -266,6 +334,11 @@ a {
 .point-standart {
   background-color: #d7672a;
   border: 3px solid #329579;
+}
+
+.point-extra {
+  background-color: transparent;
+  border: 3px solid red;
 }
 
 #iterator {

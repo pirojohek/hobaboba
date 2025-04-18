@@ -230,8 +230,8 @@ async function genetic() {
 
     if(getPointsButton.classList.contains("tools__button-active")) {
         getPointsButton.classList.toggle("tools__button-active");
-        field.removeEventListener("mousedown",getPoint);
-        field.removeEventListener("mouseup", setAnimationPoint);
+        mainField.removeEventListener("mousedown",getPoint);
+        mainField.removeEventListener("mouseup", setAnimationPoint);
     }
 
     COUNT_POINTS = arrayOfPoints.length;
@@ -239,7 +239,7 @@ async function genetic() {
     console.log(POPULATION_COUNT, ITERATION_COUNT);
 
     if(POPULATION_COUNT === null || ITERATION_COUNT === null || COUNT_POINTS == 0) {
-        alert("Проверьте данные!");
+        alert("Проверьте данные или их ввод!");
         return;
     }
     

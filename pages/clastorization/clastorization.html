@@ -26,17 +26,43 @@
 			<div class="content__inner">
 				<h1 class = "content__title">Кластеризация точек на плоскости</h1>
 				<div class = "parameters">
-					<h2 class="parameters__title">Параметры (ввести все - <span style="font-style: italic; font-weight: 700;">Enter</span>)</h2>
+					<h2 class="parameters__title">Параметры</h2>
 					<div class="parameters__content">
 						<div class="parameters__blocks">
 							<div class="parameters__block">
-								<h2 class="parameters__sub-title">Количество кластеров (k-means)</h2>
-								<p style="font-style: italic;">Не более 50 (цветов мало)</p>
-								<input id = "inputPopulation" type="number" placeholder="Ввод">
+								<h2 class="parameters__title" style = "text-align: center;">K-means</h2>
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Количество кластеров</h3>
+									<p>Не более 20 (цветов мало)</p>
+									<input id = "count-clasters" type="number" placeholder="Ввод">
+								</div>
+								
+							</div>
+							<div class="parameters__block" >
+								<h2 class="parameters__title" style = "text-align: center;">DBSCAN</h2>
+
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Эпсилон</h3>
+									<p>Будет показан размер</p>
+									<input id = "eps" type="number" placeholder="Ввод">
+									<div class="mini-field">
+										
+									</div>
+								</div>
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Соседние точки</h3>
+									<p>Количество точек рядом с корневой</p>
+									<input id = "count-m" type="number" placeholder="Ввод">
+								</div>
 							</div>
 							<div class="parameters__block">
-								<h2 class="parameters__sub-title">Количество итераций</h2>
-								<input id = "inputIteration" type="number" placeholder="Ввод">
+								<h2 class="parameters__title" style = "text-align: center;">Other</h2>
+
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Количество кластеров</h3>
+									<p>Не более 20 (цветов мало)</p>
+									<input id = "" type="number" placeholder="Ввод">
+								</div>
 							</div>
 						</div>
 						<div class="parameters__blocks">
@@ -57,13 +83,30 @@
 						</div>
 					</div>
 				</div>
+				<div class="options">
+					<h2 class="options__title">Выберите визуализацию алгоритма</h2>
+					<div class="options__commands">
+						<button id = "k-means-button" class="tools__button">K-Means</button>
+						<button id = "dbscan-button" class="tools__button">DBSCAN</button>
+						<button id = "" class="tools__button">Other</button>
+					</div>
+				</div>
 				<div class="input-block">
 					<h2 class="input-block__title">Поле расставления точек</h2>
 					<div class="input-block__inner">
 						<h3 class="input-block__text">
 							
 						</h3>
-						<div class="field">
+						<div id = "main-field" class="field">
+							
+						</div>
+						<div id="k-means-field" class="field">
+							
+						</div>
+						<div id="dbscan-field" class="field">
+							
+						</div>
+						<div id="other-field" class="field">
 							
 						</div>
 					</div>
@@ -76,6 +119,9 @@
 	<script src="./js/preparing.js"></script>
 	<script src = "./js/cleaning.js"></script>
 	<script src = "./js/setParameters.js"></script>
+	<script src = "./js/k-means.js"></script>
+	<script src = "./js/dbscan.js" ></script>
+	<script src = './js/changeDisplay.js'></script>
 	<script src="./js/scripts.js"></script>
 </body>
 </html>
