@@ -230,8 +230,8 @@ async function genetic() {
 
     if(getPointsButton.classList.contains("tools__button-active")) {
         getPointsButton.classList.toggle("tools__button-active");
-        mainField.removeEventListener("mousedown",getPoint);
-        mainField.removeEventListener("mouseup", setAnimationPoint);
+        field.removeEventListener("mousedown",getPoint);
+        field.removeEventListener("mouseup", setAnimationPoint);
     }
 
     COUNT_POINTS = arrayOfPoints.length;
