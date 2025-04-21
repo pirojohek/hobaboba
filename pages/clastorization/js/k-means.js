@@ -77,7 +77,7 @@ function K_means() {
         
     }
 
-    let colors = getArrayOfColors(clasters.length);
+    let colors = getFirstNElems(randomColors, clasters.length);
 
     for(let i = 0; i < clasters.length; i++) {
         for(let point of clasters[i].arr) {

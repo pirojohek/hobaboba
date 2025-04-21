@@ -100,6 +100,15 @@ function getAVGPoint(points) {
     
 }
 
+function getFirstNElems(arr, n) {
+    let ans = new Array(n);
+
+    for(let i = 0; i < n; i++) {
+        ans[i] = arr[i];
+    }
+    return ans;
+}
+
 
 function Claster(point) {
     this.mainPoint = point;
@@ -149,6 +158,8 @@ function setColorPoint(point, color) {
     fieldPoint.style.backgroundColor = color;
 }
 
+var randomColors = new Array();
+
 function main() {
 
     isWorking = true;
@@ -167,7 +178,10 @@ function main() {
         return;
     }
 
+    randomColors = getArrayOfColors(lightColors.length);
+
     K_means();
+    dbscan();
 
     options.style.display = "block";
     isWorking = false;  

@@ -31,7 +31,7 @@ function setValues(e) {
             newPoint.classList.add("point-extra");
 
             newPoint.setAttribute('style',
-                `width: ${2*EPS}px; height: ${2*EPS}px;`
+                `width: ${2*EPS+20}px; height: ${2*EPS+20}px;`
             );
             
             miniField.appendChild(newPoint);
@@ -47,7 +47,7 @@ function setValues(e) {
         }
 
         if(isNumeric(inputM.value) && inputM.value > 0) {
-            M = inputEps.value;
+            M = inputM.value;
         }
         else {
             M = null;
@@ -78,7 +78,7 @@ function setValuesButton() {
             newPoint.classList.add("point-extra");
 
             newPoint.setAttribute('style',
-                `width: ${2*EPS}px; height: ${2*EPS}px;`
+                `width: ${2*EPS+20}px; height: ${2*EPS+20}px;`
             );
 
             
@@ -96,7 +96,7 @@ function setValuesButton() {
         }
 
         if(isNumeric(inputM.value) && inputM.value > 0) {
-            M = inputEps.value;
+            M = inputM.value;
         }
         else {
             M = null;
