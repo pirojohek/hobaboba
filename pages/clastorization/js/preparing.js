@@ -1,6 +1,9 @@
 const getPointsButton = document.getElementById('get-points');
-var screen = document.getElementById('screen');
-const field = document.querySelector(".field");
+
+const mainField = document.getElementById("main-field");
+const kMeansField = document.getElementById('k-means-field');
+const dbscanField = document.getElementById("dbscan-field");
+const agglomerativeField = document.getElementById("agglomerative-field");
 
 var countPoints = 0;
 
@@ -10,10 +13,10 @@ var previousPointObject = null;
 
 function getPoint(e) {
 
-    const rect = field.getBoundingClientRect();
+    const rect = mainField.getBoundingClientRect();
 
-    const x = e.x - rect.left;
-    const y = e.y-rect.top;
+    const x = e.clientX - rect.left; 
+    const y = e.clientY - rect.top;  
 
     let point = new Point(x, y);
 
@@ -33,7 +36,7 @@ function getPoint(e) {
             left: ${x-10}px;
             top: ${y-10}px;
         `);
-    field.appendChild(currentPoint);
+    mainField.appendChild(currentPoint);
     
 
     // Черчение линий в процессе проставления точек
@@ -56,12 +59,18 @@ function runProcessOfPreparing() {
 
     if(getPointsButton.classList.contains("tools__button-active")) {
         getPointsButton.classList.toggle("tools__button-active");
-        field.removeEventListener("mousedown",getPoint);
+        mainField.removeEventListener("mousedown",getPoint);
         document.removeEventListener("mouseup", setAnimationPoint);
     }
     else {
         getPointsButton.classList.toggle("tools__button-active");
-        field.addEventListener("mousedown", getPoint);
+
+        mainField.style.display = "block";
+        kMeansField.style.display = "none";
+        dbscanField.style.display = "none";
+        agglomerativeField.style.display = "none";
+
+        mainField.addEventListener("mousedown", getPoint);
         document.addEventListener("mouseup", setAnimationPoint);
     }
    

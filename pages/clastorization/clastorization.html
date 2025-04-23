@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Кластеризация</title>
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="page-name"><a href="#">Hobaboba</a></div>
+			<nav class="menu">
+				<ul class="menu__list">
+					<li class="menu__item"><a href="#">Главная страница</a></li>
+					<li class="menu__item"><a href="#">A* Search</a></li>
+					<li class="menu__item menu__item-active"><a href="#">Кластеризация</a></li>
+					<li class="menu__item"><a href="#">Генетический</a></li>
+					<li class="menu__item"><a href="#">Муравьиный</a></li>
+					<li class="menu__item"><a href="#">Дерево</a></li>
+					<li class="menu__item"><a href="#">Нейронка</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div class="content">
+			<div class="content__inner">
+				<h1 class = "content__title">Кластеризация точек на плоскости</h1>
+				<div class = "parameters">
+					<h2 class="parameters__title">Параметры</h2>
+					<div class="parameters__content">
+						<div class="parameters__blocks">
+							<div class="parameters__block">
+								<h2 class="parameters__title" style = "text-align: center;">K-means</h2>
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Количество кластеров</h3>
+									<p>Не более 20 (цветов мало)</p>
+									<input id = "count-clasters" type="number" placeholder="Ввод">
+								</div>
+								
+							</div>
+							<div class="parameters__block" >
+								<h2 class="parameters__title" style = "text-align: center;">DBSCAN</h2>
+
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Эпсилон</h3>
+									<p>Область будет показана после ввода</p>
+									<input id = "eps" type="number" placeholder="Ввод">
+									<div class="mini-field">
+										
+									</div>
+								</div>
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Соседние точки</h3>
+									<p>Количество точек рядом с корневой</p>
+									<input id = "count-m" type="number" placeholder="Ввод">
+								</div>
+							</div>
+							<div class="parameters__block">
+								<h2 class="parameters__title" style = "text-align: center;">Agglomerative</h2>
+
+								<div class = "parameters__sub-block">
+									<h3 class="parameters__sub-title">Количество кластеров</h3>
+									<p>Не более 20 (цветов мало)</p>
+									<input id = "count-clasters-agglomerative" type="number" placeholder="Ввод">
+								</div>
+							</div>
+						</div>
+						<div class="parameters__blocks">
+							<button class="parameters__button" id = "set-values">Ввести значения</button>
+						</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="tools">
+					<h2 class="tools__title">Инструменты</h2>
+					<div class="tools__content">
+						<div class="tools__commands">
+							<button id = "get-points" class="tools__button">Расставить точки</button>
+							<button id = "clear-field" class="tools__button">Очистить поле</button>
+							<button id = "run-algorithm" class="tools__button">Запустить алгоритм</button>
+						</div>
+					</div>
+				</div>
+				<div class="options">
+					<h2 class="options__title">Выберите визуализацию алгоритма</h2>
+					<div class="options__commands">
+						<button id = "k-means-button" class="tools__button">K-Means</button>
+						<button id = "dbscan-button" class="tools__button">DBSCAN</button>
+						<button id = "agglomerative-button" class="tools__button">Agglomerative</button>
+					</div>
+				</div>
+				<div class="input-block">
+					<h2 class="input-block__title">Поле расставления точек</h2>
+					<div class="input-block__inner">
+						<h3 class="input-block__text">
+							
+						</h3>
+						<div id = "main-field" class="field">
+							
+						</div>
+						<div id="k-means-field" class="field">
+							
+						</div>
+						<div id="dbscan-field" class="field">
+							
+						</div>
+						<div id="agglomerative-field" class="field">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="./js/preparing.js"></script>
+	<script src = "./js/cleaning.js"></script>
+	<script src = "./js/setParameters.js"></script>
+	<script src = "./js/k-means.js"></script>
+	<script src = "./js/dbscan.js" ></script>
+	<script src = "./js/agglomerative.js"></script>
+	<script src = './js/changeDisplay.js'></script>
+	<script src="./js/scripts.js"></script>
+</body>
+</html>

@@ -5,19 +5,39 @@ function Point(x,y) { // Точка с координатами (x, y)
 
 
 
+
+
+
 var arrayOfPoints = new Array();
 
-const COUNT_POINTS = 15;
+var COUNT_POINTS = null;
 
-const POPULATION_COUNT = 50;
+var POPULATION_COUNT = null;
 
-const ITERATION_COUNT = 100;
+var ITERATION_COUNT = null;
 
 const PROBABILITY_OF_CROSSINGOVER = 0.9;
 
 const PROBABILITY_OF_MUTATION = 0.1;
 
 const PROBABILITY_OF_MUTATION_ONE = 0.01;
+
+const buttonRunAlgorithm = document.getElementById("run-algorithm");
+
+const textIterator = document.querySelector('.input-block__text')
+
+const iterator = document.getElementById('iterator');
+
+const len = document.getElementById('length');
+
+buttonRunAlgorithm.addEventListener("click", genetic);
+
+
+var isWorking = false;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function getRandomFloat(min, max) { // Рандомное число в диапазоне (float min, float max)
     return Math.random() * (max - min) + min;
@@ -30,10 +50,6 @@ function getRandomInt(min, max) { // Рандомное число в диапа
 
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
-
-
-
-
 
 
 function setRandomPermutation(arr, size) { // Получаем рандомную перестановку массива. Сложность O(n)
@@ -185,58 +201,125 @@ function setCrossingover(population, tempArray, probability) { // Проход �
 
 }
 
+async function drawGraph(path) {
 
+    screen.innerHTML = "";
 
+    for(let i = 0; i < path.length - 1; i++) {
 
+        let begin = arrayOfPoints[path[i]];
+        let end = arrayOfPoints[path[i+1]];
 
-
-
-
-
-data = new Array(COUNT_POINTS);
-
-
-for( let i = 0; i < COUNT_POINTS;i++) {
-    data[i] = new Point(getRandomFloat(0, 100), getRandomFloat(0, 100));
-}
-
-
-
-
-
-population = new Array(POPULATION_COUNT);
-
-for( let i = 0; i < POPULATION_COUNT;i++) {
-
-    population[i] = new Array(COUNT_POINTS);
-
-    for(let j = 0; j < COUNT_POINTS;j++) {
-        population[i][j] = j;
+        screen.insertAdjacentHTML(
+            "beforeend",
+            `<line x1 = '${begin.x}' y1 = '${begin.y}' x2 = '${end.x}' y2 = '${end.y}' stroke = "blue" stroke-width = "2">`
+        );
+        await sleep(100);
     }
-    setRandomPermutation(population[i], COUNT_POINTS);
+    let begin = arrayOfPoints[path[path.length - 1]];
+    let end = arrayOfPoints[path[0]];
+
+    screen.insertAdjacentHTML(
+        "beforeend",
+        `<line x1 = '${begin.x}' y1 = '${begin.y}' x2 = '${end.x}' y2 = '${end.y}' stroke = "blue" stroke-width = "2">`
+    );
 }
 
+var cnt = 0;
+async function genetic() {
 
+    if(getPointsButton.classList.contains("tools__button-active")) {
+        getPointsButton.classList.toggle("tools__button-active");
+        field.removeEventListener("mousedown",getPoint);
+        field.removeEventListener("mouseup", setAnimationPoint);
+    }
 
-tempArray = new Array(POPULATION_COUNT);
+    COUNT_POINTS = arrayOfPoints.length;
 
-for(let iter = 0; iter < ITERATION_COUNT;iter++) {
+    console.log(POPULATION_COUNT, ITERATION_COUNT);
 
-    setSelection(population, tempArray, data);
-
-    setCrossingover(population, tempArray, PROBABILITY_OF_CROSSINGOVER);
+    if(POPULATION_COUNT === null || ITERATION_COUNT === null || COUNT_POINTS == 0) {
+        alert("Проверьте данные или их ввод!");
+        return;
+    }
     
-    for(let i = 0; i<POPULATION_COUNT;i++) {
-        if(Math.random() < PROBABILITY_OF_MUTATION) {
-            setRandomMutation(population[i], COUNT_POINTS, PROBABILITY_OF_MUTATION_ONE);
-        }
-    }
+    textIterator.style.visibility = 'visible';
 
+
+    isWorking = true;
+
+    data = arrayOfPoints;
+    
+    
+    population = new Array(POPULATION_COUNT);
+    
+    for( let i = 0; i < POPULATION_COUNT;i++) {
+    
+        population[i] = new Array(COUNT_POINTS);
+    
+        for(let j = 0; j < COUNT_POINTS;j++) {
+            population[i][j] = j;
+        }
+        setRandomPermutation(population[i], COUNT_POINTS);
+    }
+    
+    
+    
+    tempArray = new Array(POPULATION_COUNT);
+    
     let mn = 10000000;
 
-    for(let item of population) {
-        mn = Math.min(mn, getFitness(item,   data, COUNT_POINTS));
+    for(let iter = 0; iter < ITERATION_COUNT;iter++) {
+    
+        iterator.innerHTML = iter + 1;
+        
+
+        setSelection(population, tempArray, data);
+    
+        setCrossingover(population, tempArray, PROBABILITY_OF_CROSSINGOVER);
+        
+        for(let i = 0; i<POPULATION_COUNT;i++) {
+            if(Math.random() < PROBABILITY_OF_MUTATION) {
+                setRandomMutation(population[i], COUNT_POINTS, PROBABILITY_OF_MUTATION_ONE);
+            }
+        }
+    
+        let currentMn = 10000000;
+    
+        for(let item of population) {
+            currentMn = Math.min(currentMn, getFitness(item,   data, COUNT_POINTS));
+        }
+        
+        
+
+        if(currentMn != mn) {
+            len.innerHTML = currentMn;
+            
+            let path = population[0];
+            
+            for(let i = 1;i < population.length;i++) {
+                if(currentMn == getFitness(population[i],   data, COUNT_POINTS)) {
+                    path = population[i];
+                    break;
+                }
+            }
+            // Рисуем граф новый
+
+            drawGraph(path);
+            await sleep(100 * path.length);
+            cnt++;
+            mn = currentMn;
+        }
+        console.log(mn);
+        await sleep(10);
     }
-    console.log(mn);
+    
+    isWorking = false;
+
 }
+
+
+
+
+
 

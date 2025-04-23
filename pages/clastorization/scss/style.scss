@@ -136,7 +136,9 @@ a {
 		&:hover {
 			background-color: #1A80E5;
 		}
-		
+		&-active{
+			background-color: #1A80E5;
+		}
 	}
 	
 }
@@ -199,12 +201,27 @@ a {
 		
 	}
 	&__sub-title {
-		padding: 20px 0px 5px 0px;
 		font-size: 18px;
+		text-align: center;
+		font-weight: 500;
 	}
-	&__block{
-		
+	&__sub-block{
+		padding: 10px 10px;
+		border-left: 2px solid white;
+		border-right: 2px solid white;
 
+		display: flex;
+        flex-direction: column;
+        align-items: center;
+
+		p{
+			font-style: italic;
+		}
+		input {
+			
+			border: 2px solid #243647;
+			
+		}
 	}
 	&__blocks{
 		display: flex;
@@ -212,9 +229,7 @@ a {
 		justify-content: space-around;
 		padding: 20px;
 	}
-	input {
-		border: 2px solid #243647;
-	}
+	
 	&__button{
 		background: linear-gradient(145deg, #243647, #1a2a36);
 		padding: 13px 30px;
@@ -244,7 +259,7 @@ a {
 	}
 	&__inner {
 		padding: 10px 0 0 0;
-		height: 400px;
+		height: 600px;
 	}
 	&__text {
 		display: flex;
@@ -254,6 +269,8 @@ a {
 		font-style: italic;
 	}
 }
+
+
 .field {
 	position: relative;
 	background-color: #1a2a36;
@@ -275,6 +292,72 @@ a {
 		
 	}
 }
+
+.mini-field {
+	
+	
+	
+	background-color: #1a2a36;
+	border-radius: 20px;
+	margin: 20px;
+	
+	width: 100%;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+
+	&__point {
+		
+		
+		width: 20px;
+		height: 20px;
+		
+		border-radius: 50%;
+	}
+}
+
+.options{
+	
+	display: none;
+
+	&__title{
+		padding: 20px 0px 0px 0px;
+		font-size: 22px;
+	}
+	&__content{
+		width: 100%;
+	}
+	&__commands{
+		display: flex;
+		justify-items: center;
+		justify-content: space-between;
+		padding: 20px;
+	}
+	&__button{
+		background: linear-gradient(145deg, #243647, #1a2a36);
+		padding: 13px 30px;
+		border-radius: 12px;
+		font-size: 16px;
+		color: white;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	}
+	&__button:hover {
+		transform: scale(0.95);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); 
+		transition: background-color 0.6s ease, box-shadow 0.6s ease;
+	}
+	&__button-active {
+		transform: scale(0.92);
+		box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3); 
+		background: linear-gradient(145deg, #1a2a36, #1a80e5);
+		transition: background-color 0.6s ease, box-shadow 0.6s ease;
+	}
+}
+#k-means-field, #dbscan-field, #agglomerative-field {
+	display: none;
+}
 .point-new {
 	background-color: #d7672a;
 	border: 3px solid #46d6ae;
@@ -284,6 +367,10 @@ a {
 	border: 3px solid #329579;
 }
 
+.point-extra {
+	background-color: transparent;
+	border: 3px solid red;
+}
 #iterator{
 	color:#3e698a;
 }
