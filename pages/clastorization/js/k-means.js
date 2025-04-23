@@ -1,5 +1,5 @@
 
-var COUNT_CLASTERS = null;
+var COUNT_CLASTERS_K = null;
 
 function AddPointKMeans(point, color) {
 
@@ -28,13 +28,13 @@ function K_means() {
     }
 
     let clasterPoints = new Array();
-    for(let i = 0; i < COUNT_CLASTERS;i++) {
+    for(let i = 0; i < COUNT_CLASTERS_K;i++) {
         clasterPoints.push(new Point(getRandomInt(0 + 10, fieldRect.width-10),  getRandomInt(0 + 10, fieldRect.height-10)));
     }
 
     let clasters = new Array();
 
-    for(let i = 0; i < COUNT_CLASTERS; i++){
+    for(let i = 0; i < COUNT_CLASTERS_K; i++){
         clasters.push(new Claster(clasterPoints[i]));
     }
 

@@ -13,8 +13,8 @@
 			<nav class="menu">
 				<ul class="menu__list">
 					<li class="menu__item"><a href="#">Главная страница</a></li>
-					<li class="menu__item active"><a href="#">A* Search</a></li>
-					<li class="menu__item"><a href="#">Кластеризация</a></li>
+					<li class="menu__item"><a href="#">A* Search</a></li>
+					<li class="menu__item menu__item-active"><a href="#">Кластеризация</a></li>
 					<li class="menu__item"><a href="#">Генетический</a></li>
 					<li class="menu__item"><a href="#">Муравьиный</a></li>
 					<li class="menu__item"><a href="#">Дерево</a></li>
@@ -43,7 +43,7 @@
 
 								<div class = "parameters__sub-block">
 									<h3 class="parameters__sub-title">Эпсилон</h3>
-									<p>Будет показан размер</p>
+									<p>Область будет показана после ввода</p>
 									<input id = "eps" type="number" placeholder="Ввод">
 									<div class="mini-field">
 										
@@ -56,12 +56,12 @@
 								</div>
 							</div>
 							<div class="parameters__block">
-								<h2 class="parameters__title" style = "text-align: center;">Other</h2>
+								<h2 class="parameters__title" style = "text-align: center;">Agglomerative</h2>
 
 								<div class = "parameters__sub-block">
 									<h3 class="parameters__sub-title">Количество кластеров</h3>
 									<p>Не более 20 (цветов мало)</p>
-									<input id = "" type="number" placeholder="Ввод">
+									<input id = "count-clasters-agglomerative" type="number" placeholder="Ввод">
 								</div>
 							</div>
 						</div>
@@ -88,7 +88,7 @@
 					<div class="options__commands">
 						<button id = "k-means-button" class="tools__button">K-Means</button>
 						<button id = "dbscan-button" class="tools__button">DBSCAN</button>
-						<button id = "" class="tools__button">Other</button>
+						<button id = "agglomerative-button" class="tools__button">Agglomerative</button>
 					</div>
 				</div>
 				<div class="input-block">
@@ -106,7 +106,7 @@
 						<div id="dbscan-field" class="field">
 							
 						</div>
-						<div id="other-field" class="field">
+						<div id="agglomerative-field" class="field">
 							
 						</div>
 					</div>
@@ -121,6 +121,7 @@
 	<script src = "./js/setParameters.js"></script>
 	<script src = "./js/k-means.js"></script>
 	<script src = "./js/dbscan.js" ></script>
+	<script src = "./js/agglomerative.js"></script>
 	<script src = './js/changeDisplay.js'></script>
 	<script src="./js/scripts.js"></script>
 </body>

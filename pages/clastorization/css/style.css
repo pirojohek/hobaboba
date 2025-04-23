@@ -132,6 +132,9 @@ a {
 .menu__item:hover {
   background-color: #1A80E5;
 }
+.menu__item-active {
+  background-color: #1A80E5;
+}
 
 .content {
   margin: 0px 160px 0px 160px;
@@ -322,7 +325,7 @@ a {
   transition: background-color 0.6s ease, box-shadow 0.6s ease;
 }
 
-#k-means-field, #dbscan-field, #other-field {
+#k-means-field, #dbscan-field, #agglomerative-field {
   display: none;
 }
 

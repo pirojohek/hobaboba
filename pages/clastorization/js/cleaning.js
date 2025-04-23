@@ -8,10 +8,12 @@ function clear() {
     mainField.innerHTML = "";
     kMeansField.innerHTML = "";
     dbscanField.innerHTML = "";
-    
+    agglomerativeField.innerHTML = "";
+
     mainField.style.display = "block";
     kMeansField.style.display = "none";
     dbscanField.style.display = "none";
+    agglomerativeField.style.display = "none";
     options.style.display = "none";
 
     while(arrayOfPoints.length != 0) {

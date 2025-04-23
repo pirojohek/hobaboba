@@ -1,6 +1,8 @@
 const inputClasters = document.getElementById("count-clasters");
 const inputEps = document.getElementById("eps");
 const inputM = document.getElementById("count-m");
+const inputClastersAgg = document.getElementById('count-clasters-agglomerative');
+
 
 const setButton = document.getElementById('set-values');
 
@@ -11,10 +13,17 @@ function isNumeric(value) { // Проверка на корректное чис
 function setValues(e) {
     if(e.code === "Enter") {
         if(isNumeric(inputClasters.value) && inputClasters.value > 0) {
-            COUNT_CLASTERS = inputClasters.value;
+            COUNT_CLASTERS_K = inputClasters.value;
         }
         else {
-            COUNT_CLASTERS = null;
+            COUNT_CLASTERS_K = null;
+        }
+
+        if(isNumeric(inputClastersAgg.value) && inputClastersAgg.value > 0) {
+            COUNT_CLASTERS_AGG = inputClastersAgg.value;
+        }
+        else {
+            COUNT_CLASTERS_AGG = null;
         }
 
         if(isNumeric(inputEps.value) && inputEps.value > 0) {
@@ -59,10 +68,17 @@ function setValues(e) {
 function setValuesButton() {
     setButton.classList.toggle('parameters__button-active');
         if(isNumeric(inputClasters.value) && inputClasters.value > 0) {
-            COUNT_CLASTERS = inputClasters.value;
+            COUNT_CLASTERS_K = inputClasters.value;
         }
         else {
-            COUNT_CLASTERS = null;
+            COUNT_CLASTERS_K = null;
+        }
+
+        if(isNumeric(inputClastersAgg.value) && inputClastersAgg.value > 0) {
+            COUNT_CLASTERS_AGG = inputClastersAgg.value;
+        }
+        else {
+            COUNT_CLASTERS_AGG = null;
         }
 
         if(isNumeric(inputEps.value) && inputEps.value > 0) {

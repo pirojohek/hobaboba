@@ -3,6 +3,7 @@ const getPointsButton = document.getElementById('get-points');
 const mainField = document.getElementById("main-field");
 const kMeansField = document.getElementById('k-means-field');
 const dbscanField = document.getElementById("dbscan-field");
+const agglomerativeField = document.getElementById("agglomerative-field");
 
 var countPoints = 0;
 

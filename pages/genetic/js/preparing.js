@@ -57,12 +57,12 @@ function runProcessOfPreparing() {
     if(getPointsButton.classList.contains("tools__button-active")) {
         getPointsButton.classList.toggle("tools__button-active");
         field.removeEventListener("mousedown",getPoint);
-        field.removeEventListener("mouseup", setAnimationPoint);
+        document.removeEventListener("mouseup", setAnimationPoint);
     }
     else {
         getPointsButton.classList.toggle("tools__button-active");
         field.addEventListener("mousedown", getPoint);
-        field.addEventListener("mouseup", setAnimationPoint);
+        document.addEventListener("mouseup", setAnimationPoint);
     }
    
 }

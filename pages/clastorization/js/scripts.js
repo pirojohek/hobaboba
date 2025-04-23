@@ -5,33 +5,26 @@ function Point(x,y) { // Точка с координатами (x, y)
 
 
 var lightColors = [
-    // Яркие акценты (основные)
-    "#FF5555", // Красный (более насыщенный)
-    "#00FFC2", // Бирюзовый (неоновый)
-    "#FFD700", // Золотой
-    "#FF8C42", // Оранжевый (глубокий)
-    "#BE77FF", // Фиолетовый (средней насыщенности)
-    
-    // Вторичные контрастные
-    "#00E0FF", // Голубой (ледяной)
-    "#FF44CC", // Пурпурно-розовый
-    "#50FF50", // Зеленый (неоновый)
-    "#FF6EFF", // Ярко-сиреневый
-    "#FF4D4D", // Алый
-    
-    // Дополнительные
-    "#00FFAA", // Изумрудный
-    "#FFA343", // Мандариновый
-    "#AA55FF", // Фиолетовый (электрик)
-    "#00D8FF", // Аквамарин
-    "#FF5E7E", // Коралловый
-    
-    // Завершающие
-    "#9AFF9A", // Светло-зеленый
-    "#FF66B2", // Розовый (глубокий)
-    "#6B8CFF", // Лазурный
-    "#FFCC33", // Янтарный
-    "#FF3366"  // Рубиновый
+    '#DC143C',
+    '#FF0000',
+    '#FA8072',
+    '#ADFF2F',
+    '#32CD32',
+    '#90EE90',
+    '#00FF7F',
+    '#FF69B4',
+    '#FF1493',
+    '#FFA500',
+    '#FFFF00',
+    '#FFFFE0',
+    '#00FFFF',
+    '#4682B4',
+    '#00BFFF',
+    '#0000FF',
+    '#8A2BE2',
+    '#800080',
+    '#D2691E',
+    '#8B4513',
   ];
 
 var arrayOfPoints = new Array();
@@ -172,7 +165,7 @@ function main() {
         mainField.removeEventListener("mouseup", setAnimationPoint);
     }
     
-    if(COUNT_CLASTERS == null || COUNT_POINTS == 0 || EPS == null || M == null) {
+    if(COUNT_CLASTERS_K == null || COUNT_POINTS == 0 || EPS == null || M == null || COUNT_CLASTERS_AGG == null) {
         alert("Проверьте данные или их ввод!");
         isWorking = false; 
         return;
@@ -182,6 +175,7 @@ function main() {
 
     K_means();
     dbscan();
+    agglomerative();
 
     options.style.display = "block";
     isWorking = false;  
