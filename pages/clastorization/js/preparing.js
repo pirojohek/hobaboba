@@ -64,6 +64,12 @@ function runProcessOfPreparing() {
     }
     else {
         getPointsButton.classList.toggle("tools__button-active");
+
+        mainField.style.display = "block";
+        kMeansField.style.display = "none";
+        dbscanField.style.display = "none";
+        agglomerativeField.style.display = "none";
+
         mainField.addEventListener("mousedown", getPoint);
         document.addEventListener("mouseup", setAnimationPoint);
     }
