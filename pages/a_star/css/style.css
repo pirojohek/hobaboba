@@ -132,6 +132,9 @@ a {
 .menu__item:hover {
   background-color: #1A80E5;
 }
+.menu__item-active {
+  background-color: #1A80E5;
+}
 
 .content {
   margin: 0px 160px 0px 160px;
@@ -200,7 +203,7 @@ a {
 }
 .tools__input-size {
   background-color: #1c2a38;
-  width: 35px;
+  width: 45px;
   height: 35px;
   border-radius: 6px;
   text-align: center;

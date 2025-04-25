@@ -327,3 +327,7 @@ a {
   visibility: visible;
   margin-left: 10px;
 }/*# sourceMappingURL=style.css.map */
+
+.selected-dot{
+	background-color: brown;
+}
