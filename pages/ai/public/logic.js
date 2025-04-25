@@ -227,6 +227,10 @@ canvas.addEventListener("mouseup", function(e){
     draw = false;
 });
 
+let popupBg = document.querySelector('.popup__bg');
+let popup = document.querySelector('.popup');
+let answer = document.getElementById("res");
+
 function define(){
     var myImageData = scaleCanvasTo28x28(canvas);
     let data = convert4in2(myImageData.data);
@@ -244,6 +248,15 @@ function define(){
     data = softmax(data);
     let vals3 = data;
     setResult(vals3);
+    let res = 0;
+    for(let i = 0; i < 10; ++i){
+        if(vals3[i] > vals3[res]){
+            res = i;
+        }
+    }
+    answer.textContent = res;
+    popupBg.classList.add('active');
+    popup.classList.add('active');
 }
 
 function clear(){
@@ -286,9 +299,14 @@ async function loadW2() {
     }
 }
 
-
-// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     loadW1();
     loadW2();
+});
+
+document.addEventListener('click', (e) => {
+    if(e.target === popupBg) {
+        popupBg.classList.remove('active');
+        popup.classList.remove('active');
+    }
 });
