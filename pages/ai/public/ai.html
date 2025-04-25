@@ -11,12 +11,12 @@
 
 			<nav class="menu">
 				<ul class="menu__list">
-					<li class="menu__item"><a href="#">Главная страница</a></li>
-					<li class="menu__item"><a href="#">A* Search</a></li>
-					<li class="menu__item"><a href="#">Кластеризация</a></li>
-					<li class="menu__item"><a href="#">Генетический</a></li>
-					<li class="menu__item"><a href="#">Муравьиный</a></li>
-					<li class="menu__item"><a href="#">Дерево</a></li>
+					<li class="menu__item"><a href="../../main/main.html">Главная страница</a></li>
+					<li class="menu__item"><a href="../../a_star/a_star.html">A* Search</a></li>
+					<li class="menu__item"><a href="../../clastorization/clastorization.html">Кластеризация</a></li>
+					<li class="menu__item"><a href="../../genetic/genetic.html">Генетический</a></li>
+					<li class="menu__item"><a href="../../formic/formic.html">Муравьиный</a></li>
+					<li class="menu__item"><a href="../../tree/page.html">Дерево</a></li>
 					<li class="menu__item menu__item-active"><a href="#">Нейронка</a></li>
 				</ul> 
 			</nav>
@@ -24,7 +24,6 @@
         <div style="display: grid; justify-content: center; align-items: center; place-items: center; margin-top: 10px;">
             <canvas id="canvas" width="50" height="50" style="background-color:#eee; border: 2px solid #1a80e5; margin-bottom: 10px;"></canvas>
             <canvas id="new_canvas" width="28" height="28" style="background-color:#eee; border: 2px solid #1a80e5; margin-bottom: 10px;"></canvas>
-            <script type="module" src="./logic.js"></script>
             <div style="display: flex;">
                 <button id="button_clear" class="tools__button" type="button" onclick="clear()">clear</button>
                 <button id="button_define" class="tools__button" type="button" onclick="define()">define</button>
@@ -63,4 +62,6 @@
             </div>
         </div>
     </body>
+    <script src="./weights.js"></script>
+    <script src="./logic.js"></script>
 </html>

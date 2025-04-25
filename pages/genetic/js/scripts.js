@@ -201,11 +201,17 @@ function setCrossingover(population, tempArray, probability) { // Проход �
 
 }
 
-async function drawGraph(path) {
+var cancelDrawing = false;
 
+async function drawGraph(path) {
+    cancelDrawing = true;
+    await sleep(101);
     screen.innerHTML = "";
+    cancelDrawing = false;
 
     for(let i = 0; i < path.length - 1; i++) {
+
+        if(cancelDrawing) return;
 
         let begin = arrayOfPoints[path[i]];
         let end = arrayOfPoints[path[i+1]];
@@ -223,6 +229,7 @@ async function drawGraph(path) {
         "beforeend",
         `<line x1 = '${begin.x}' y1 = '${begin.y}' x2 = '${end.x}' y2 = '${end.y}' stroke = "blue" stroke-width = "2">`
     );
+    await sleep(100);
 }
 
 var cnt = 0;
@@ -304,9 +311,9 @@ async function genetic() {
                 }
             }
             // Рисуем граф новый
-
+            
             drawGraph(path);
-            await sleep(100 * path.length);
+            await sleep(100 * path.length + 101);
             cnt++;
             mn = currentMn;
         }

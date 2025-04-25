@@ -132,6 +132,9 @@ a {
 .menu__item:hover {
   background-color: #1A80E5;
 }
+.menu__item-active {
+  background-color: #1A80E5;
+}
 
 .content {
   margin: 0px 160px 0px 160px;
