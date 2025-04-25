@@ -48,10 +48,7 @@ function addConfirm(e){
 	if (data.countSelectedDots == data.dotCords.length){
 		e.target.removeEventListener("click", addConfirm);
 		
-		for (let i = 1; i <= data.dotCords.length; i++){
-			const dot = document.querySelector(`.game__dot[data-id-dot="${i}"]`);
-			dot.classList.remove("selected-dot");
-		}
+		removeSelectedDots();
 
 		formic(true);
 	} else {
@@ -70,13 +67,23 @@ function winMachine(){
 
 }
 
+function removeSelectedDots(){
+	for (let i = 1; i <= data.dotCords.length; i++){
+		const dot = document.querySelector(`.game__dot[data-id-dot="${i}"]`);
+		dot.classList.remove("selected-dot");
+	}
+}
+
 function clearPathPlayer(){
 	const lines = document.querySelectorAll(".game__line-player");
 	for (let line of lines){
 		line.remove();
 	}
+	removeSelectedDots();
+
 	addEventOnDots();
 	const path = document.getElementById("sparing__current-length");
+	
 	path.innerHTML = "";
 
 	data.pathPlayer = [];
