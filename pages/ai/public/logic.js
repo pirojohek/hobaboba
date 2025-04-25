@@ -25,20 +25,20 @@ const h=canvas.height;
  
 const mouse = { x:0, y:0};
 let draw = false;
-let weights1 = [];
-let weights2 = [];
+let weights1 = w1.trim().split(/\s+/).map(Number);
+let weights2 = w2.trim().split(/\s+/).map(Number);
 
 function setResult(result){
-    zero.textContent = result[0]*100 + '%';
-    one.textContent = result[1]*100 + '%';
-    two.textContent = result[2]*100 + '%';
-    thrie.textContent = result[3]*100 + '%';
-    four.textContent = result[4]*100 + '%';
-    five.textContent = result[5]*100 + '%';
-    six.textContent = result[6]*100 + '%';
-    seven.textContent = result[7]*100 + '%';
-    eight.textContent = result[8]*100 + '%';
-    nine.textContent = result[9]*100 + '%';
+    zero.textContent = result[0].toFixed(2)*100 + '%';
+    one.textContent = result[1].toFixed(2)*100 + '%';
+    two.textContent = result[2].toFixed(2)*100 + '%';
+    thrie.textContent = result[3].toFixed(2)*100 + '%';
+    four.textContent = result[4].toFixed(2)*100 + '%';
+    five.textContent = result[5].toFixed(2)*100 + '%';
+    six.textContent = result[6].toFixed(2)*100 + '%';
+    seven.textContent = result[7].toFixed(2)*100 + '%';
+    eight.textContent = result[8].toFixed(2)*100 + '%';
+    nine.textContent = result[9].toFixed(2)*100 + '%';
 }
 
 function scaleCanvasTo28x28(sourceCanvas) {
@@ -255,9 +255,15 @@ btn_clear.addEventListener('click', clear);
 
 async function loadW1() {
     try {
-        const response = await fetch('/get-w1');
-        const data = await response.json();
-        weights1 = data;
+        let weight = [];
+        for (let i = 0; i < firstLayer; ++i){
+            let w = [];
+            for (let j = 0; j < secondLayer; ++j){
+                w.push(weights1[i*secondLayer + j]);
+            }
+            weight.push(w);
+        }
+        weights1 = weight;
     } catch (error) {
         console.error('Ошибка загрузки данных:', error);
     }
@@ -265,10 +271,15 @@ async function loadW1() {
 
 async function loadW2() {
     try {
-        const response = await fetch('/get-w2');
-        const data = await response.json();
-        //console.log('Записываем в файл:', data);
-        weights2 = data;
+        let weight = [];
+        for (let i = 0; i < secondLayer; ++i){
+            let w = [];
+            for (let j = 0; j < thirdLayer; ++j){
+                w.push(weights2[i*thirdLayer + j]);
+            }
+            weight.push(w);
+        }
+        weights2 = weight;
     } catch (error) {
         console.error('Ошибка загрузки данных:', error);
     }
