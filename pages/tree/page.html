@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Tree</title>
+		<link rel="stylesheet" href="style.css">
+		<style>
+            #progress {width:0; height:100%; background-color:#03b7b4; text-align: center;}
+            #progress-bar {width:150px; height:24px; border:2px solid #ffffff; margin-left: 3%;}
+        </style>
+    </head>
+    <body>
+		
+        <header class="header">
+			<div class="page-name"><a href="#">HobaBoba</a></div>
+
+			<nav class="menu">
+				<ul class="menu__list">
+					<li class="menu__item"><a href="#">Главная страница</a></li>
+					<li class="menu__item"><a href="#">A* Search</a></li>
+					<li class="menu__item"><a href="#">Кластеризация</a></li>
+					<li class="menu__item"><a href="#">Генетический</a></li>
+					<li class="menu__item"><a href="#">Муравьиный</a></li>
+					<li class="menu__item menu__item-active"><a href="#">Дерево</a></li>
+					<li class="menu__item"><a href="#">Нейронка</a></li>
+				</ul>
+			</nav>
+		</header>
+		<label class="file-input-label">
+			<input type="file" id="files" class="file-input" accept="text/csv" multiple />
+			<span>Выберите файл</span>
+		</label>
+		<br><br>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+		<div style="margin-left: 1%; margin-top: 1%;">
+			<label class="file-input-label">
+				<input type="number" id="depth" class="data-input" size="2"" placeholder="Глубина дерева"/>
+			</label>
+			<button id="btn_build" class="tools__button" type="button">Построить дерево</button>
+			<button id="btn_del" class="tools__button" type="button">Удалить дерево</button>
+		</div>
+		<div>
+			<label class="file-input-label">
+				<input type="text" id="data" class="data-input" size="25" oninput="this.size=Math.max(this.value.length, 25)" placeholder="Введите данные для поиска"/>
+			</label>
+			<button id="btn_find" class="tools__button" type="button">Найти путь</button>
+		</div>
+        <div id="parent" style="position: relative; width: 400px; height: 400px;">
+			<svg id="svg" style="position: absolute; width: inherit; height: inherit;"></svg>
+        </div>
+		<script src="./treeLogic.js"></script>
+		<script src="./visualizeLogic.js"></script>
+    </body>
+</html>
