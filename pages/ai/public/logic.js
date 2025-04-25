@@ -18,7 +18,8 @@ const new_canvas = document.getElementById("new_canvas");
 const btn = document.getElementById("button_define");
 const btn_clear = document.getElementById("button_clear");
 const context = canvas.getContext("2d");
-context.lineWidth = 1;
+
+context.lineWidth = 20;
 
 const w = canvas.width;
 const h=canvas.height;
@@ -46,9 +47,9 @@ function scaleCanvasTo28x28(sourceCanvas) {
     new_canvas.height = 28;
     const ctx = new_canvas.getContext('2d');
     
-    const scale = Math.min(28 / 50, 28 / 50);
-    const scaledWidth = 50 * scale;
-    const scaledHeight = 50 * scale;
+    const scale = Math.min(28 / 500, 28 / 500);
+    const scaledWidth = 500 * scale;
+    const scaledHeight = 500 * scale;
     const offsetX = (28 - scaledWidth) / 2;
     const offsetY = (28 - scaledHeight) / 2;
 
